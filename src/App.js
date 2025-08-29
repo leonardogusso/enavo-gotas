@@ -1,4 +1,7 @@
+// src/App.js
+
 import React from 'react';
+import QRCode from "react-qr-code"; // <-- MUDANÇA IMPORTANTE AQUI
 import { Calculator } from './components/Calculator';
 
 const Header = () => (
@@ -29,10 +32,8 @@ const VideoSection = () => (
 );
 
 const QRSection = () => {
-  const QRCode = require("react-qr-code");
-  
-  // ***** LINK DO BITLY AQUI *****
-  const qrUrlRastreavel = "bit.ly/EnavoGotas"; 
+  // Substitua pelo seu link do Bitly se já tiver criado
+  const qrUrlRastreavel = "https://enavogotas.vercel.app";
   
   return (
     <section className="mx-auto max-w-md px-4 py-6 flex flex-col items-center gap-2">
@@ -61,7 +62,6 @@ const Footer = () => (
     </div>
   </footer>
 );
-
 
 export default function App() {
   return (
