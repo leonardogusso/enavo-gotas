@@ -30,10 +30,13 @@ const VideoSection = () => (
 
 const QRSection = () => {
   const QRCode = require("react-qr-code");
-  const qrUrl = "https://www.enavogotas.com/landing?utm_source=kit&utm_medium=qrcode&utm_campaign=ativacao2025";
+  
+  // ***** LINK DO BITLY AQUI *****
+  const qrUrlRastreavel = "bit.ly/EnavoGotas"; 
+  
   return (
     <section className="mx-auto max-w-md px-4 py-6 flex flex-col items-center gap-2">
-      <QRCode value={qrUrl} size={156} fgColor="#005BAB" />
+      <QRCode value={qrUrlRastreavel} size={156} fgColor="#005BAB" />
       <p className="text-[12px] text-sky-600">Escaneie para acessar a página completa</p>
     </section>
   );
