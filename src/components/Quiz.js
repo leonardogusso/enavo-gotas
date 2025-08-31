@@ -1,27 +1,18 @@
+// src/components/Quiz.js
 import React, { useState } from 'react';
+import { VideoSeparator } from './VideoSeparator'; // Importa o separador para usar como loading
 
 const questions = [
-  {
-    question: "Qual o sabor de Enavo Gotas, que facilita a aceitação pelas crianças?",
-    options: ["Tutti-frutti", "Morango", "Laranja"],
-    answer: "Morango"
-  },
-  {
-    question: "Segundo a bula, qual a concentração de ondansetrona por gota?",
-    options: ["0,2 mg / gota", "0,4 mg / gota", "0,8 mg / gota"],
-    answer: "0,4 mg / gota"
-  },
-  {
-    question: "A posologia recomendada por especialistas leva em consideração quais fatores da criança?",
-    options: ["Apenas o peso", "Apenas a idade", "Idade e Peso"],
-    answer: "Idade e Peso"
-  }
+  { question: "Qual o sabor de Enavo Gotas, que facilita a aceitação pelas crianças?", options: ["Tutti-frutti", "Morango", "Laranja"], answer: "Morango" },
+  { question: "Segundo a bula, qual a concentração de ondansetrona por gota?", options: ["0,2 mg / gota", "0,4 mg / gota", "0,8 mg / gota"], answer: "0,4 mg / gota" },
+  { question: "A posologia recomendada por especialistas leva em consideração quais fatores da criança?", options: ["Apenas o peso", "Apenas a idade", "Idade e Peso"], answer: "Idade e Peso" }
 ];
 
 export function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Estado de loading
 
   const handleAnswer = (option) => {
     if (option === questions[currentQuestion].answer) {
@@ -31,12 +22,20 @@ export function Quiz() {
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
     } else {
-      setShowResult(true);
+      setIsLoading(true); // Ativa o loading
+      setTimeout(() => {
+        setIsLoading(false); // Desativa o loading
+        setShowResult(true); // Mostra o resultado
+      }, 2000); // Espera 2 segundos
     }
   };
 
   const whatsappMessage = encodeURIComponent("Concluí o quiz e ganhei meu selo de Médico Expert Enavo Gotas! 💧");
   const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
+
+  if (isLoading) {
+    return <VideoSeparator />; // Mostra a gota como loading
+  }
 
   if (showResult) {
     return (
