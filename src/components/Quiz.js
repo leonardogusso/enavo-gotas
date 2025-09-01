@@ -2,14 +2,13 @@
 import React, { useState } from 'react';
 import { VideoSeparator } from './VideoSeparator';
 
-// ... (o array de `questions` continua o mesmo)
 const questions = [
   { question: "Qual o sabor de Enavo Gotas, que facilita a aceitação pelas crianças?", options: ["Tutti-frutti", "Morango", "Laranja"], answer: "Morango" },
   { question: "Segundo a bula, qual a concentração de ondansetrona por gota?", options: ["0,2 mg / gota", "0,4 mg / gota", "0,8 mg / gota"], answer: "0,4 mg / gota" },
   { question: "A posologia recomendada por especialistas leva em consideração quais fatores da criança?", options: ["Apenas o peso", "Apenas a idade", "Idade e Peso"], answer: "Idade e Peso" }
 ];
 
-// Recebe o nome do médico para personalizar o resultado
+//  o nome do médico para personalizar o resultado
 const SuccessResult = ({ score, doctorName }) => {
   const whatsappMessage = encodeURIComponent(`Concluí o quiz e ganhei meu selo de Médico Expert Enavo Gotas! 💧`);
   const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
