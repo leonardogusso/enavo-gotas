@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// Recebe o nome e a função para atualizá-lo do componente pai (App.js)
 export function AskRep({ doctorName, setDoctorName }) {
   const [question, setQuestion] = useState('');
   const [specialty, setSpecialty] = useState('');
@@ -9,7 +8,6 @@ export function AskRep({ doctorName, setDoctorName }) {
   
   const professionalNumber = "5511991367425";
 
-  // Formata a mensagem de forma estruturada, incluindo apenas os campos preenchidos
   let message = `Nova pergunta sobre Enavo Gotas (via plataforma digital):\n`;
   if (doctorName) message += `\n- Nome: Dr(a). ${doctorName}`;
   if (specialty) message += `\n- Especialidade: ${specialty}`;
@@ -24,8 +22,8 @@ export function AskRep({ doctorName, setDoctorName }) {
       <h2 className="text-xl font-bold text-sky-900 text-center">Perguntas ao Representante</h2>
       <p className="text-center text-sky-700 text-sm mt-2">Tem alguma dúvida? Envie diretamente para o nosso representante.</p>
       
-      <div className="mt-4 space-y-3">
-        {/* Campos novos e existentes */}
+      {/* O layout agora é uma grade com 2 colunas e espaçamento */}
+      <div className="mt-4 grid grid-cols-2 gap-4">
         <input 
           type="text"
           value={doctorName}
@@ -51,21 +49,23 @@ export function AskRep({ doctorName, setDoctorName }) {
           type="text"
           value={clinic}
           onChange={(e) => setClinic(e.target.value)}
-          placeholder="Nome da Clínica ou Hospital (opcional)"
+          placeholder="Clínica/Hospital (opcional)"
           className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
         />
+        
+        {/* A caixa de texto e o botão ocupam as 2 colunas */}
         <textarea 
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           rows="4"
           placeholder="Digite sua pergunta aqui..."
-          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
+          className="w-full border border-sky-300 rounded px-3 py-2 text-sm col-span-2"
         ></textarea>
         <a 
           href={question ? whatsappUrl : '#'} 
           target="_blank" 
           rel="noreferrer"
-          className={`w-full block px-5 py-2 text-white rounded-lg text-sm font-semibold shadow text-center ${question ? 'bg-emerald-600' : 'bg-gray-400 cursor-not-allowed'}`}
+          className={`w-full block px-5 py-2 text-white rounded-lg text-sm font-semibold shadow text-center col-span-2 ${question ? 'bg-emerald-600' : 'bg-gray-400 cursor-not-allowed'}`}
         >
           Enviar via WhatsApp
         </a>
