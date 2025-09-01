@@ -11,8 +11,8 @@ export function Introduction() {
       </div>
       <ul className="space-y-2 text-sky-900 text-base mx-auto inline-block text-left">
         <li>🍓 Sabor morango</li>
-        <li>💧 Não precisa de água</li>
         <li>💧 Baixo volume</li>
+        <li>❌ Não precisa de água</li>
         <li>🎯 1 gota = 0,4 mg</li>
       </ul>
     </section>
