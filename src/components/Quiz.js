@@ -2,36 +2,25 @@
 import React, { useState } from 'react';
 import { VideoSeparator } from './VideoSeparator';
 
+// ... (o array de `questions` continua o mesmo)
 const questions = [
-  {
-    question: "Qual o sabor de Enavo Gotas, que facilita a aceitação pelas crianças?",
-    options: ["Tutti-frutti", "Morango", "Laranja"],
-    answer: "Morango"
-  },
-  {
-    question: "Segundo a bula, qual a concentração de ondansetrona por gota?",
-    options: ["0,2 mg / gota", "0,4 mg / gota", "0,8 mg / gota"],
-    answer: "0,4 mg / gota"
-  },
-  {
-    question: "A posologia recomendada por especialistas leva em consideração quais fatores da criança?",
-    options: ["Apenas o peso", "Apenas a idade", "Idade e Peso"],
-    answer: "Idade e Peso"
-  }
+  { question: "Qual o sabor de Enavo Gotas, que facilita a aceitação pelas crianças?", options: ["Tutti-frutti", "Morango", "Laranja"], answer: "Morango" },
+  { question: "Segundo a bula, qual a concentração de ondansetrona por gota?", options: ["0,2 mg / gota", "0,4 mg / gota", "0,8 mg / gota"], answer: "0,4 mg / gota" },
+  { question: "A posologia recomendada por especialistas leva em consideração quais fatores da criança?", options: ["Apenas o peso", "Apenas a idade", "Idade e Peso"], answer: "Idade e Peso" }
 ];
 
-// Componente para a tela de sucesso (100% de acertos)
-const SuccessResult = ({ score }) => {
-  const whatsappMessage = encodeURIComponent("Concluí o quiz e ganhei meu selo de Médico Expert Enavo Gotas! 💧");
+// Recebe o nome do médico para personalizar o resultado
+const SuccessResult = ({ score, doctorName }) => {
+  const whatsappMessage = encodeURIComponent(`Concluí o quiz e ganhei meu selo de Médico Expert Enavo Gotas! 💧`);
   const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
 
   return (
     <section className="mx-auto max-w-md px-4 py-8 text-center">
-      <h2 className="text-2xl font-bold text-sky-900">Parabéns!</h2>
+      {/* Mensagem personalizada */}
+      <h2 className="text-2xl font-bold text-sky-900">Parabéns, {doctorName || 'Dr(a).'}!</h2>
       <p className="text-emerald-600 font-semibold mt-2">Você acertou {score} de {questions.length} e se tornou um Expert!</p>
       <div className="mt-6 border-2 border-dashed border-sky-300 rounded-xl p-6 bg-sky-50">
         <h3 className="text-xl font-bold text-emsblue">Selo de Médico Expert Enavo Gotas</h3>
-        {/* TODO: Quando tiver a imagem final do selo, coloque na pasta 'public' e atualize o nome do arquivo aqui */}
         <img src="/logo-SBP.webp" alt="Logo Sociedade Brasileira de Pediatria" className="w-32 mx-auto my-4" />
         <p className="text-xs text-sky-700">Este selo reconhece seu conhecimento atualizado sobre as melhores práticas no manejo de náuseas e vômitos na pediatria.</p>
       </div>
@@ -42,7 +31,7 @@ const SuccessResult = ({ score }) => {
   );
 };
 
-// Componente para a tela de revisão (com respostas erradas)
+// ... (o componente ReviewResult continua o mesmo)
 const ReviewResult = ({ userAnswers }) => {
   return (
     <section className="mx-auto max-w-md px-4 py-8 text-center">
@@ -61,7 +50,8 @@ const ReviewResult = ({ userAnswers }) => {
   );
 };
 
-export function Quiz() {
+// Recebe o `doctorName` para passar para a tela de sucesso
+export function Quiz({ doctorName }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
@@ -88,13 +78,11 @@ export function Quiz() {
   }
 
   if (showResult) {
-    // Calcula o score final com base nas respostas
     const finalScore = userAnswers.reduce((score, answer, index) => {
       return answer === questions[index].answer ? score + 1 : score;
     }, 0);
 
-    // Mostra a tela de sucesso ou a de revisão com base no score
-    return finalScore === questions.length ? <SuccessResult score={finalScore} /> : <ReviewResult userAnswers={userAnswers} />;
+    return finalScore === questions.length ? <SuccessResult score={finalScore} doctorName={doctorName} /> : <ReviewResult userAnswers={userAnswers} />;
   }
 
   return (
