@@ -1,13 +1,22 @@
-// src/components/AskRep.js
 import React, { useState } from 'react';
 
-// Recebe o nome e a função para atualizá-lo
+// Recebe o nome e a função para atualizá-lo do componente pai (App.js)
 export function AskRep({ doctorName, setDoctorName }) {
   const [question, setQuestion] = useState('');
+  const [specialty, setSpecialty] = useState('');
+  const [crm, setCrm] = useState('');
+  const [clinic, setClinic] = useState('');
   
   const professionalNumber = "5511991367425";
-  // A mensagem agora inclui o nome do médico, se ele preencheu
-  const message = `Olá, sou Dr(a). ${doctorName || ''} e tenho uma pergunta sobre Enavo Gotas: ${question}`;
+
+  // Formata a mensagem de forma estruturada, incluindo apenas os campos preenchidos
+  let message = `Nova pergunta sobre Enavo Gotas (via plataforma digital):\n`;
+  if (doctorName) message += `\n- Nome: Dr(a). ${doctorName}`;
+  if (specialty) message += `\n- Especialidade: ${specialty}`;
+  if (crm) message += `\n- CRM: ${crm}`;
+  if (clinic) message += `\n- Clínica/Hospital: ${clinic}`;
+  message += `\n\n- Pergunta: ${question}`;
+  
   const whatsappUrl = `https://wa.me/${professionalNumber}?text=${encodeURIComponent(message)}`;
 
   return (
@@ -16,12 +25,33 @@ export function AskRep({ doctorName, setDoctorName }) {
       <p className="text-center text-sky-700 text-sm mt-2">Tem alguma dúvida? Envie diretamente para o nosso representante.</p>
       
       <div className="mt-4 space-y-3">
-        {/* Novo campo para o nome do médico */}
+        {/* Campos novos e existentes */}
         <input 
           type="text"
           value={doctorName}
           onChange={(e) => setDoctorName(e.target.value)}
           placeholder="Seu nome (opcional)"
+          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
+        />
+        <input 
+          type="text"
+          value={specialty}
+          onChange={(e) => setSpecialty(e.target.value)}
+          placeholder="Especialidade (opcional)"
+          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
+        />
+        <input 
+          type="text"
+          value={crm}
+          onChange={(e) => setCrm(e.target.value)}
+          placeholder="CRM (opcional)"
+          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
+        />
+        <input 
+          type="text"
+          value={clinic}
+          onChange={(e) => setClinic(e.target.value)}
+          placeholder="Nome da Clínica ou Hospital (opcional)"
           className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
         />
         <textarea 
