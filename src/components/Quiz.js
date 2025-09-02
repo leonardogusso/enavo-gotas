@@ -1,4 +1,3 @@
-// src/components/Quiz.js
 import React, { useState } from 'react';
 import { VideoSeparator } from './VideoSeparator';
 
@@ -8,20 +7,22 @@ const questions = [
   { question: "A posologia recomendada por especialistas leva em consideração quais fatores da criança?", options: ["Apenas o peso", "Apenas a idade", "Idade e Peso"], answer: "Idade e Peso" }
 ];
 
-//  o nome do médico para personalizar o resultado
 const SuccessResult = ({ score, doctorName }) => {
   const whatsappMessage = encodeURIComponent(`Concluí o quiz e ganhei meu selo de Médico Expert Enavo Gotas! 💧`);
   const whatsappUrl = `https://wa.me/?text=${whatsappMessage}`;
 
   return (
     <section className="mx-auto max-w-md px-4 py-8 text-center">
-      {/* Mensagem personalizada */}
       <h2 className="text-2xl font-bold text-sky-900">Parabéns, {doctorName || 'Dr(a).'}!</h2>
       <p className="text-emerald-600 font-semibold mt-2">Você acertou {score} de {questions.length} e se tornou um Expert!</p>
       <div className="mt-6 border-2 border-dashed border-sky-300 rounded-xl p-6 bg-sky-50">
+        {/* IMAGEM DA MEDALHA ADICIONADA AQUI */}
+        <img src="/medalha-expert.png" alt="Medalha Enavo Expert" className="w-20 mx-auto mb-4" />
+        
         <h3 className="text-xl font-bold text-emsblue">Selo de Médico Expert Enavo Gotas</h3>
-        <img src="/logo-SBP.webp" alt="Logo Sociedade Brasileira de Pediatria" className="w-32 mx-auto my-4" />
-        <p className="text-xs text-sky-700">Este selo reconhece seu conhecimento atualizado sobre as melhores práticas no manejo de náuseas e vômitos na pediatria.</p>
+        
+        {/* Logo da SBP foi removido daqui */}
+        <p className="text-xs text-sky-700 mt-4">Este selo reconhece seu conhecimento atualizado sobre as melhores práticas no manejo de náuseas e vômitos na pediatria.</p>
       </div>
       <a href={whatsappUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block px-5 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold shadow">
         Enviar selo para meu WhatsApp
@@ -30,8 +31,8 @@ const SuccessResult = ({ score, doctorName }) => {
   );
 };
 
-// ... (o componente ReviewResult continua o mesmo)
 const ReviewResult = ({ userAnswers }) => {
+    //... (esta parte do código não muda)
   return (
     <section className="mx-auto max-w-md px-4 py-8 text-center">
       <h2 className="text-2xl font-bold text-sky-900">Obrigado por participar!</h2>
@@ -49,8 +50,8 @@ const ReviewResult = ({ userAnswers }) => {
   );
 };
 
-// Recebe o `doctorName` para passar para a tela de sucesso
 export function Quiz({ doctorName }) {
+    //... (o resto do código não muda)
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
