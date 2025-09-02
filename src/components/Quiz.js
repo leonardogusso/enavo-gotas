@@ -17,7 +17,7 @@ const SuccessResult = ({ score, doctorName }) => {
       <p className="text-emerald-600 font-semibold mt-2">Você acertou {score} de {questions.length} e se tornou um Expert!</p>
       <div className="mt-6 border-2 border-dashed border-sky-300 rounded-xl p-6 bg-sky-50">
         {/* IMAGEM DA MEDALHA ADICIONADA AQUI */}
-        <img src="/medalha-expert.png" alt="Medalha Enavo Expert" className="w-20 mx-auto mb-4" />
+        <img src="/medalha-expert.jpg" alt="Medalha Enavo Expert" className="w-20 mx-auto mb-4" />
         
         <h3 className="text-xl font-bold text-emsblue">Selo de Médico Expert Enavo Gotas</h3>
         
