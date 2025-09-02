@@ -12,22 +12,20 @@ export function Calculator() {
       return null;
     }
 
+    //... (lógica da calculadora não muda)
     const mgPorGota = 0.4;
 
-    // de 06 meses até 2 anos (23 meses)
     if (idadeNum >= 6 && idadeNum < 24) {
       const gotasMin = Math.round((0.2 * pesoNum) / mgPorGota);
       const gotasMax = Math.round((0.4 * pesoNum) / mgPorGota);
       return `De ${gotasMin} a ${gotasMax} gotas.`;
     }
 
-    // Após os 2 anos (24 meses)
     if (idadeNum >= 24) {
       if (pesoNum <= 30) {
-        const gotas = Math.min(Math.round(pesoNum), 10); // 1 gota/kg, máximo 10 gotas
+        const gotas = Math.min(Math.round(pesoNum), 10);
         return `${gotas} gotas. (Dose máxima de 4 mg)`;
-      } else { // Crianças acima de 30 kg
-        // --- LÓGICA ATUALIZADA AQUI ---
+      } else {
         return `De 10 a 20 gotas. (4 mg a 8 mg)`;
       }
     }
@@ -56,6 +54,14 @@ export function Calculator() {
             <p className="text-2xl font-bold text-emsblue my-1">{posologia}</p>
           </div>
         )}
+        
+        {/* SEÇÃO DE ENDOSSO DA SBP ADICIONADA AQUI */}
+        <div className="mt-6 flex items-center justify-center gap-4 border-t border-sky-200 pt-4">
+          <img src="/logo-SBP.webp" alt="Logo Sociedade Brasileira de Pediatria" className="h-12 w-12" />
+          <p className="text-xs text-sky-700">
+            Cálculo de posologia baseado nas recomendações de especialistas e alinhado com as melhores práticas pediátricas.
+          </p>
+        </div>
       </div>
     </section>
   );
