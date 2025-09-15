@@ -2,19 +2,13 @@ import React from 'react';
 
 export function Introduction() {
   return (
-    <section className="mx-auto max-w-md px-4 py-8 grid gap-6 text-center">
+    <section className="mx-auto max-w-md px-4 text-center">
       <img src="/logo-enavo.jpeg" alt="Logo Enavo Gotas" className="w-2/3 mx-auto" />
-      <div className="space-y-3">
-        <p className="text-xl text-sky-800">Precisão na dose.</p>
-        <p className="text-xl text-sky-800">Fácil na administração.</p>
-        <p className="text-xl text-sky-800">Alívio rápido em gotas.</p>
+      <div className="mt-6 space-y-2">
+        {/* Título principal com a fonte serifada */}
+        <h1 className="font-serif text-3xl font-bold text-sky-900">A precisão que a pediatria precisa.</h1>
+        <h2 className="font-serif text-2xl text-slate-600">Gota a gota.</h2>
       </div>
-      <ul className="space-y-2 text-sky-900 text-base mx-auto inline-block text-left">
-        <li>🍓 Sabor morango</li>
-        <li>💧 Baixo volume</li>
-        <li>❌ Não precisa de água</li>
-        <li>🎯 1 gota = 0,4 mg</li>
-      </ul>
     </section>
   );
 }
