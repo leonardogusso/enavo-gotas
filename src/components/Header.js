@@ -2,9 +2,10 @@ import React from 'react';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 backdrop-blur bg-white/90 border-b border-sky-100">
-      <div className="mx-auto max-w-md px-4 py-3 flex items-center justify-between">
-        <span className="font-bold text-emsblue">Enavo Gotas - o referência em ondansetrona gotas</span>
+    // Estilo mais limpo com fundo branco sólido e sombra sutil
+    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <div className="mx-auto max-w-md px-4 py-3">
+        <span className="font-bold text-emsblue">Enavo Gotas - Recurso Clínico Pediátrico</span>
       </div>
     </header>
   );
