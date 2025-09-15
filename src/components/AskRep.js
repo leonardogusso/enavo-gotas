@@ -7,68 +7,28 @@ export function AskRep({ doctorName, setDoctorName }) {
   const [clinic, setClinic] = useState('');
   
   const professionalNumber = "5511991367425";
-
   let message = `Nova pergunta sobre Enavo Gotas (via plataforma digital):\n`;
   if (doctorName) message += `\n- Nome: Dr(a). ${doctorName}`;
   if (specialty) message += `\n- Especialidade: ${specialty}`;
   if (crm) message += `\n- CRM: ${crm}`;
   if (clinic) message += `\n- Clínica/Hospital: ${clinic}`;
   message += `\n\n- Pergunta: ${question}`;
-  
   const whatsappUrl = `https://wa.me/${professionalNumber}?text=${encodeURIComponent(message)}`;
 
   return (
-    <section id="ask-rep" className="mx-auto max-w-md px-4 py-8">
-      <h2 className="text-xl font-bold text-sky-900 text-center">Perguntas ao Representante</h2>
-      <p className="text-center text-sky-700 text-sm mt-2">Tem alguma dúvida? Envie diretamente para o nosso representante.</p>
-      
-      {/* O layout agora é uma grade com 2 colunas e espaçamento */}
-      <div className="mt-4 grid grid-cols-2 gap-4">
-        <input 
-          type="text"
-          value={doctorName}
-          onChange={(e) => setDoctorName(e.target.value)}
-          placeholder="Seu nome (opcional)"
-          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
-        />
-        <input 
-          type="text"
-          value={specialty}
-          onChange={(e) => setSpecialty(e.target.value)}
-          placeholder="Especialidade (opcional)"
-          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
-        />
-        <input 
-          type="text"
-          value={crm}
-          onChange={(e) => setCrm(e.target.value)}
-          placeholder="CRM (opcional)"
-          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
-        />
-        <input 
-          type="text"
-          value={clinic}
-          onChange={(e) => setClinic(e.target.value)}
-          placeholder="Clínica/Hospital (opcional)"
-          className="w-full border border-sky-300 rounded px-3 py-2 text-sm"
-        />
-        
-        {/* A caixa de texto e o botão ocupam as 2 colunas */}
-        <textarea 
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          rows="4"
-          placeholder="Digite sua pergunta aqui..."
-          className="w-full border border-sky-300 rounded px-3 py-2 text-sm col-span-2"
-        ></textarea>
-        <a 
-          href={question ? whatsappUrl : '#'} 
-          target="_blank" 
-          rel="noreferrer"
-          className={`w-full block px-5 py-2 text-white rounded-lg text-sm font-semibold shadow text-center col-span-2 ${question ? 'bg-emerald-600' : 'bg-gray-400 cursor-not-allowed'}`}
-        >
-          Enviar via WhatsApp
-        </a>
+    <section id="ask-rep" className="mx-auto max-w-md px-4">
+      <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+        <h2 className="font-serif text-2xl font-bold text-sky-900 text-center">Fale com um Especialista</h2>
+        <p className="text-center text-slate-600 text-sm mt-2">Envie sua dúvida diretamente para um de nossos representantes.</p>
+        <div className="mt-6 grid grid-cols-2 gap-4">
+          <input type="text" value={doctorName} onChange={(e) => setDoctorName(e.target.value)} placeholder="Seu nome (opcional)" className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-emsblue focus:border-emsblue transition" />
+          <input type="text" value={specialty} onChange={(e) => setSpecialty(e.target.value)} placeholder="Especialidade (opcional)" className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-emsblue focus:border-emsblue transition" />
+          <input type="text" value={crm} onChange={(e) => setCrm(e.target.value)} placeholder="CRM (opcional)" className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-emsblue focus:border-emsblue transition" />
+          <input type="text" value={clinic} onChange={(e) => setClinic(e.target.value)} placeholder="Clínica/Hospital (opcional)" className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-emsblue focus:border-emsblue transition" />
+          <textarea value={question} onChange={(e) => setQuestion(e.target.value)} rows="4" placeholder="Digite sua pergunta aqui..." className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm col-span-2 focus:ring-2 focus:ring-emsblue focus:border-emsblue transition"></textarea>
+          {/* Botão de envio com a cor de acento (verde) */}
+          <a href={question ? whatsappUrl : '#'} target="_blank" rel="noreferrer" className={`w-full block px-5 py-3 text-white rounded-lg text-base font-semibold shadow-lg text-center col-span-2 transition-transform hover:scale-105 ${question ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-gray-400 cursor-not-allowed'}`}>Enviar via WhatsApp</a>
+        </div>
       </div>
     </section>
   );
