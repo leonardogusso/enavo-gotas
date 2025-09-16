@@ -1,12 +1,13 @@
 import React from 'react';
 
 export function CourseCTA() {
-  const courseLink = "#"; // Substitua pelo link final do curso
+  // Link atualizado com o URL que você forneceu
+  const courseLink = "https://www.medicoexponencialems.com.br/video/eficacia-da-ondansetrona-na-sindrome-do-intestino-irritavel-tipo-diarreica-sii--d";
 
   return (
     <section id="course-cta" className="mx-auto max-w-md px-4 text-center">
       <h2 className="font-serif text-3xl font-bold text-sky-900">Educação Médica Continuada</h2>
-      <p className="mt-2 text-slate-700 max-w-prose mx-auto">Aprofunde seu conhecimento no manejo de náuseas e vômitos na pediatria com os conteúdos exclusivos do Médico Exponencial EMS.</p>
+      <p className="mt-2 text-slate-700 max-w-prose mx-auto">Aprofunde seu conhecimento com os conteúdos exclusivos do Médico Exponencial EMS.</p>
       <a 
         href={courseLink} 
         target="_blank" 
