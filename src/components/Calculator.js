@@ -36,7 +36,7 @@ export function Calculator() {
   return (
     <section id="posologia" className="bg-white/80 border-y border-sky-100">
       <div className="mx-auto max-w-md px-4 py-6">
-        <h2 className="text-xl font-bold text-sky-900">Calculadora de Posologia Pediátrica</h2>
+        <h2 className="text-xl font-bold text-sky-900">Calculadora de Dose</h2>
         <div className="grid grid-cols-2 gap-4 mt-2">
           <div>
             <label htmlFor="idade" className="text-sky-800 text-sm">Idade (meses)</label>
