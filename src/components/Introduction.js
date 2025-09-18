@@ -7,7 +7,7 @@ export function Introduction() {
       <div className="mt-6 space-y-2">
         {/* Título principal com a fonte serifada */}
         <h1 className="font-serif text-3xl font-bold text-sky-900">O único em gotas para o tratamento de Nauseas e Vômitos.</h1>
-        <h2 className="font-serif text-2xl text-slate-600">Gota a gota.</h2>
+        <h2 className="font-serif text-2xl text-slate-600"></h2>
       </div>
     </section>
   );
