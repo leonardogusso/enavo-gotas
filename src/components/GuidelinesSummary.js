@@ -3,7 +3,6 @@ import React from 'react';
 export function GuidelinesSummary() {
   return (
     <section id="guidelines" className="mx-auto max-w-md px-4">
-      <h2 className="font-serif text-3xl font-bold text-sky-900 text-center">Diferenciais e Evidências Clínicas</h2>
       <div className="mt-6 space-y-4">
         
         {/* SEÇÃO 1: DIFERENCIAIS (SUBSTITUINDO "MECANISMO DE AÇÃO") */}
