@@ -21,7 +21,7 @@ export function Calculator() {
   return (
     <motion.section id="posologia" className="bg-white border-y border-gray-200 shadow-sm scroll-mt-20" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp}>
       <div className="mx-auto max-w-md px-4 py-8">
-        <h2 className="font-serif text-3xl font-bold text-sky-900 text-center">Calculadora de Dose Clínica</h2>
+        <h2 className="font-serif text-3xl font-bold text-sky-900 text-center">Calculadora de Dose</h2>
         <div className="mt-6 bg-sky-50/50 border-l-4 border-sky-400 p-4 rounded-r-lg">
           <p className="text-sm text-sky-800 font-semibold">Nota sobre posologia (6 meses a 2 anos):</p>
           <p className="text-sm text-slate-700 mt-1">Para esta faixa etária, a dose recomendada é de 0,2 mg/kg a 0,4 mg/kg. Consulte a bula.</p>
