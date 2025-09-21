@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { slideFromLeft, slideFromRight } from '../animations';
+import { slideFromRight } from '../animations'; // Agora importamos apenas o slideFromRight
 
 export function GuidelinesSummary() {
   return (
@@ -16,13 +16,8 @@ export function GuidelinesSummary() {
       </motion.h2>
 
       <div className="mt-6 space-y-4">
-        
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={slideFromLeft}
-        >
+        {/* Todos os cards agora usam a mesma animação: slideFromRight */}
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideFromRight}>
           <div className="bg-white p-5 rounded-lg shadow-md border border-gray-200">
             <h3 className="font-sans font-bold text-emsblue">Diferenciais da Marca Enavo Gotas</h3>
             <ul className="text-sm mt-2 space-y-2 text-slate-700">
@@ -33,12 +28,7 @@ export function GuidelinesSummary() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={slideFromRight}
-        >
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideFromRight}>
           <div className="bg-white p-5 rounded-lg shadow-md border border-gray-200">
             <h3 className="font-sans font-bold text-emsblue">Uso Consolidado na Gastroenterite Aguda (GEA)</h3>
             <p className="text-sm mt-2 text-slate-700">O uso de dose oral única de ondansetrona na GEA é endossado por diversas sociedades pediátricas internacionais, facilitando a Terapia de Reidratação Oral (TRO).</p>
@@ -48,24 +38,16 @@ export function GuidelinesSummary() {
               <li>8-15 kg: 2 mg (5 gotas)</li>
               <li>15-30 kg: 4 mg (10 gotas)</li>
               <li>>30 kg: 8 mg (20 gotas)</li>
-
               </ul>
             </div>
           </div>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          variants={slideFromLeft}
-        >
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} variants={slideFromRight}>
           <div className="bg-white p-5 rounded-lg shadow-md border border-gray-200">
             <h3 className="font-sans font-bold text-emsblue">Forte Endosso no Brasil</h3>
-            <p className="text-sm mt-2 text-slate-700">A recomendação do uso de ondansetrona é formalmente citada pela Sociedade Brasileira de Pediatria (SBP) no "Tratado de Pediatria (2017)" e no guia prático de atualização “Manejo da diarreia aguda” (2017), além de constar nos protocolos do Ministério da Saúde.</p>
-          </div>
+          <p className="text-sm mt-2 text-slate-700">A recomendação do uso de ondansetrona é formalmente citada pela Sociedade Brasileira de Pediatria (SBP) no "Tratado de Pediatria (2017)" e no guia prático de atualização “Manejo da diarreia aguda” (2017), além de constar nos protocolos do Ministério da Saúde.</p>          </div>
         </motion.div>
-
       </div>
     </section>
   );
