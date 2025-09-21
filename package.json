@@ -5,8 +5,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "framer-motion": "^11.2.10",
     "react-intersection-observer": "^9.10.3",
-    "react-qr-code": "^2.0.12",
     "react-scripts": "5.0.1"
   },
   "scripts": {
