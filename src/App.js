@@ -14,18 +14,14 @@ export default function App() {
   return (
     <div className="font-sans min-h-screen bg-slate-50 text-slate-800">
       <Header />
-      
-      <main className="space-y-12 py-10 pt-20"> {/* Aumentei um pouco o padding-top para dar mais espaço */}
-        
-        {/* MUDANÇA: Adicionada a classe "scroll-mt-20" em cada <div> com id */}
-        <div id="introduction" className="scroll-mt-20"><Introduction /></div>
-        <div id="guidelines" className="scroll-mt-20"><GuidelinesSummary /></div>
-        <div id="posologia" className="scroll-mt-20"><Calculator /></div>
-        <div id="course-cta" className="scroll-mt-20"><CourseCTA /></div>
-        <div id="ask-rep" className="scroll-mt-20"><AskRep doctorName={doctorName} setDoctorName={setDoctorName} /></div>
-        <div id="cta" className="scroll-mt-20"><CallToAction /></div>
+      <main className="space-y-12 py-10 pt-20">
+        <Introduction />
+        <GuidelinesSummary />
+        <Calculator />
+        <CourseCTA />
+        <AskRep doctorName={doctorName} setDoctorName={setDoctorName} />
+        <CallToAction />
       </main>
-      
       <Footer />
     </div>
   );
