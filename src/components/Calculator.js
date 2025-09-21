@@ -1,68 +1,49 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '../animations';
 
 export function Calculator() {
   const [peso, setPeso] = useState('');
   const [idade, setIdade] = useState('');
-
   const posologia = useMemo(() => {
     const pesoNum = parseFloat(peso.replace(',', '.'));
     const idadeNum = parseInt(idade, 10);
-
-    if (isNaN(pesoNum) || pesoNum <= 0 || isNaN(idadeNum) || idadeNum < 6) {
-      return null;
+    if (isNaN(pesoNum) || pesoNum <= 0 || isNaN(idadeNum) || idadeNum < 2) return null;
+    if (pesoNum <= 30) {
+      const gotas = Math.min(Math.round(pesoNum), 10);
+      const mgFinais = (gotas * 0.4).toFixed(1);
+      return `${gotas} gotas (${mgFinais} mg).`;
+    } else {
+      return `De 10 a 20 gotas (4 mg a 8 mg).`;
     }
-
-    //... (lógica da calculadora não muda)
-    const mgPorGota = 0.4;
-
-    if (idadeNum >= 6 && idadeNum < 24) {
-      const gotasMin = Math.round((0.2 * pesoNum) / mgPorGota);
-      const gotasMax = Math.round((0.4 * pesoNum) / mgPorGota);
-      return `De ${gotasMin} a ${gotasMax} gotas.`;
-    }
-
-    if (idadeNum >= 24) {
-      if (pesoNum <= 30) {
-        const gotas = Math.min(Math.round(pesoNum), 10);
-        return `${gotas} gotas. (Dose máxima de 4 mg)`;
-      } else {
-        return `De 10 a 20 gotas. (4 mg a 8 mg)`;
-      }
-    }
-
-    return null;
   }, [peso, idade]);
 
   return (
-    <section id="posologia" className="bg-white/80 border-y border-sky-100">
-      <div className="mx-auto max-w-md px-4 py-6">
-        <h2 className="text-xl font-bold text-sky-900">Calculadora de Dose</h2>
+    <motion.section id="posologia" className="bg-white border-y border-gray-200 shadow-sm scroll-mt-20" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeInUp}>
+      <div className="mx-auto max-w-md px-4 py-8">
+        <h2 className="font-serif text-3xl font-bold text-sky-900 text-center">Calculadora de Dose Clínica</h2>
+        <div className="mt-6 bg-sky-50/50 border-l-4 border-sky-400 p-4 rounded-r-lg">
+          <p className="text-sm text-sky-800 font-semibold">Nota sobre posologia (6 meses a 2 anos):</p>
+          <p className="text-sm text-slate-700 mt-1">Para esta faixa etária, a dose recomendada é de 0,2 mg/kg a 0,4 mg/kg. Consulte a bula.</p>
+        </div>
+        <p className="text-center text-slate-600 mt-6 font-semibold">Para crianças a partir de 2 anos:</p>
         <div className="grid grid-cols-2 gap-4 mt-2">
           <div>
-            <label htmlFor="idade" className="text-sky-800 text-sm">Idade (meses)</label>
-            <input id="idade" value={idade} onChange={(e) => setIdade(e.target.value)} type="number" placeholder="Ex: 18" className="mt-1 w-full border border-sky-300 rounded px-3 py-2 text-sm" />
+            <label htmlFor="idade" className="text-slate-700 text-sm font-semibold">Idade (anos)</label>
+            <input id="idade" value={idade} onChange={(e) => setIdade(e.target.value)} type="number" min="2" placeholder="Ex: 3" className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-emsblue focus:border-emsblue transition" />
           </div>
           <div>
-            <label htmlFor="peso" className="text-sky-800 text-sm">Peso (kg)</label>
-            <input id="peso" value={peso} onChange={(e) => setPeso(e.target.value)} inputMode="decimal" placeholder="Ex: 10,5" className="mt-1 w-full border border-sky-300 rounded px-3 py-2 text-sm" />
+            <label htmlFor="peso" className="text-slate-700 text-sm font-semibold">Peso (kg)</label>
+            <input id="peso" value={peso} onChange={(e) => setPeso(e.target.value)} inputMode="decimal" placeholder="Ex: 15,5" className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-emsblue focus:border-emsblue transition" />
           </div>
         </div>
-
         {posologia && (
-          <div className="mt-4 bg-sky-50 border border-sky-200 rounded p-3 text-center">
-            <p className="text-sky-800 text-sm">Dose recomendada:</p>
-            <p className="text-2xl font-bold text-emsblue my-1">{posologia}</p>
+          <div className="mt-6 bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-center">
+            <p className="text-emerald-800 text-sm font-semibold">Dose calculada:</p>
+            <p className="font-sans text-3xl font-bold text-emerald-900 my-1">{posologia}</p>
           </div>
         )}
-        
-        {/* SEÇÃO DE ENDOSSO DA SBP ADICIONADA AQUI */}
-        <div className="mt-6 flex items-center justify-center gap-4 border-t border-sky-200 pt-4">
-          <img src="/logo-SBP.webp" alt="Logo Sociedade Brasileira de Pediatria" className="h-12 w-12" />
-          <p className="text-xs text-sky-700">
-            Cálculo de posologia baseado nas recomendações de especialistas e alinhado com as melhores práticas pediátricas.
-          </p>
-        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
