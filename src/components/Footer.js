@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 mt-12">
+    <footer role="contentinfo" className="bg-white border-t border-gray-200 mt-12">
       <div className="mx-auto max-w-md px-4 py-8 text-xs text-slate-500 text-center space-y-2">
         <p className="font-semibold text-emsblue">ENAVO GOTAS — ondansetrona</p>
         <p>© {new Date().getFullYear()} EMS S/A. Todos os direitos reservados.</p>
