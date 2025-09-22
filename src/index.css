@@ -6,7 +6,6 @@ html {
 @tailwind components;
 @tailwind utilities;
 
-/* Para acessibilidade - respeita a preferência do usuário por movimento reduzido */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
