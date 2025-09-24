@@ -1,49 +1,107 @@
-{
-  "name": "enavo-gotas-app",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@radix-ui/react-accordion": "^1.2.0",
-    "@radix-ui/react-alert-dialog": "^1.1.1",
-    "@radix-ui/react-dialog": "^1.1.1",
-    "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-radio-group": "^1.2.0",
-    "@radix-ui/react-separator": "^1.1.0",
-    "@radix-ui/react-slot": "^1.1.0",
-    "@radix-ui/react-toast": "^1.2.1",
-    "@tanstack/react-query": "^5.51.1",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "framer-motion": "^11.2.10",
-    "lucide-react": "^0.395.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.1",
-    "sonner": "^1.5.0",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "devDependencies": {
-    "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0-alpha.31",
-    "@typescript-eslint/parser": "^8.0.0-alpha.31",
-    "@vitejs/plugin-react-swc": "^3.7.0",
-    "autoprefixer": "^10.4.19",
-    "eslint": "^9.5.0",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5",
-    "vite": "^5.3.1"
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  
+  <title>Enavo Gotas - Ondansetrona Pediátrica | Calculadora de Dose e Evidências Científicas</title>
+  <meta name="description" content="Enavo Gotas: única ondansetrona em gotas do Brasil. Calculadora de dose pediátrica, diretrizes SBP, evidências científicas para tratamento de náuseas e vômitos em crianças." />
+  <meta name="keywords" content="ondansetrona pediátrica, enavo gotas, náuseas crianças, vômitos pediatria, calculadora dose, SBP, gastroenterite aguda, EMS" />
+  <meta name="author" content="EMS - Enavo Gotas" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://enavo-gotas.com.br" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://enavo-gotas.com.br" />
+  <meta property="og:title" content="Enavo Gotas - Ondansetrona Pediátrica" />
+  <meta property="og:description" content="Única ondansetrona em gotas do Brasil. Calculadora de dose, evidências científicas e diretrizes para pediatria." />
+  <meta property="og:image" content="https://enavo-gotas.com.br/images/enavo-social-share.jpg" />
+  <meta property="og:site_name" content="Enavo Gotas" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://enavo-gotas.com.br" />
+  <meta property="twitter:title" content="Enavo Gotas - Ondansetrona Pediátrica" />
+  <meta property="twitter:description" content="Única ondansetrona em gotas do Brasil. Calculadora de dose e evidências científicas." />
+  <meta property="twitter:image" content="https://enavo-gotas.com.br/images/enavo-social-share.jpg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Enavo Gotas - Ondansetrona Pediátrica",
+    "description": "Informações médicas sobre Enavo Gotas, ondansetrona pediátrica em gotas para tratamento de náuseas e vômitos",
+    "url": "https://enavo-gotas.com.br",
+    "mainEntity": {
+      "@type": "Drug",
+      "name": "Enavo Gotas",
+      "activeIngredient": "Ondansetrona",
+      "dosageForm": "Gotas orais",
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "EMS"
+      },
+      "indication": "Tratamento de náuseas e vômitos em pediatria",
+      "contraindication": "Hipersensibilidade à ondansetrona"
+    },
+    "audience": {
+      "@type": "MedicalAudience",
+      "audienceType": "Médicos pediatras e profissionais de saúde"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "EMS"
+    },
+    "dateModified": "2024-01-15",
+    "inLanguage": "pt-BR"
   }
-}
+  </script>
+
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Enavo Gotas">
+
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((registration) => {
+            console.log('SW registered: ', registration);
+          })
+          .catch((registrationError) => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+  </script>
+</body>
+
+</html>
