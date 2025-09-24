@@ -9,10 +9,10 @@ export function Header() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // O offset de -100px compensa a altura do header fixo
+      // O offset de -100px compensa a altura do header fixo para o scroll parar no lugar certo
       const topPos = element.getBoundingClientRect().top + window.pageYOffset - 100;
       window.scrollTo({ top: topPos, behavior: 'smooth' });
-      setIsMenuOpen(false);
+      setIsMenuOpen(false); // Fecha o menu mobile após o clique
     }
   };
 
@@ -32,8 +32,6 @@ export function Header() {
               src="/images/ems-logo.png" 
               alt="Logo da EMS Pharma" 
               className="h-8 w-auto"
-              // Adicione um fallback simples caso a imagem não carregue
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             />
             <div className="hidden sm:block">
               <h1 className="text-xl font-bold text-blue-900">Enavo Gotas</h1>
