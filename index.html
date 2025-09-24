@@ -1,16 +1,28 @@
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#2563eb">
-    <title>Enavo Gotas - Ondansetrona Pediátrica</title>
-    <meta name="description" content="Enavo Gotas: única ondansetrona em gotas do Brasil. Calculadora de dose pediátrica, diretrizes SBP, evidências científicas para tratamento de náuseas e vômitos em crianças." />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+import React from 'react';
+import { Header } from '@/components/sections/Header';
+import { Introduction } from '@/components/sections/Introduction';
+import { GuidelinesSummary } from '@/components/sections/GuidelinesSummary';
+
+export default function IndexPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      
+      <main id="main-content" className="pt-16">
+        <Introduction />
+        <GuidelinesSummary />
+
+        {/* Placeholder para as próximas seções */}
+        <div id="posologia" className="h-screen pt-20 p-10">
+          <h2 className="text-xl font-bold">Seção Calculadora</h2>
+        </div>
+        <div id="biblioteca" className="h-screen pt-20 p-10">
+          <h2 className="text-xl font-bold">Seção Biblioteca</h2>
+        </div>
+        <div id="ask-rep" className="h-screen pt-20 p-10">
+          <h2 className="text-xl font-bold">Seção Contato</h2>
+        </div>
+      </main>
+    </div>
+  );
+}
