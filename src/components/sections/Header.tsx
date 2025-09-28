@@ -12,17 +12,17 @@ export function Header() {
       // Fecha o menu mobile primeiro
       setIsMenuOpen(false);
       
-      // Aguarda o fechamento do menu antes do scroll
+      // Aguarda animação do menu fechar antes do scroll
       setTimeout(() => {
-        const headerHeight = 80; // Altura do header fixo
-        const elementTop = element.getBoundingClientRect().top;
-        const offsetPosition = elementTop + window.pageYOffset - headerHeight;
+        const headerHeight = 80; // Altura real do header fixo
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
 
         window.scrollTo({
           top: offsetPosition,
           behavior: 'smooth'
         });
-      }, 300); // 300ms para dar tempo do menu fechar
+      }, 300); // 300ms para aguardar menu fechar completamente
     }
   };
 
@@ -35,11 +35,11 @@ export function Header() {
       role="banner"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo e Nome do Produto */}
           <div className="flex items-center space-x-3">
-            <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">E</span>
+            <div className="h-10 w-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">E</span>
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl font-semibold text-slate-900">Enavo Gotas</h1>
@@ -48,17 +48,33 @@ export function Header() {
           </div>
 
           {/* Navegação Desktop */}
-          <nav className="hidden md:flex items-center space-x-1" aria-label="Navegação principal">
-            <Button variant="ghost" onClick={() => scrollToSection('guidelines')} className="text-slate-700 hover:text-blue-600">
+          <nav className="hidden md:flex items-center space-x-2" aria-label="Navegação principal">
+            <Button 
+              variant="ghost" 
+              onClick={() => scrollToSection('guidelines')} 
+              className="text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+            >
               Diretrizes
             </Button>
-            <Button variant="ghost" onClick={() => scrollToSection('posologia')} className="text-slate-700 hover:text-blue-600">
+            <Button 
+              variant="ghost" 
+              onClick={() => scrollToSection('posologia')} 
+              className="text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+            >
               Calculadora
             </Button>
-            <Button variant="ghost" onClick={() => scrollToSection('biblioteca')} className="text-slate-700 hover:text-blue-600">
+            <Button 
+              variant="ghost" 
+              onClick={() => scrollToSection('biblioteca')} 
+              className="text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+            >
               Biblioteca
             </Button>
-            <Button variant="ghost" onClick={() => scrollToSection('ask-rep')} className="text-slate-700 hover:text-blue-600">
+            <Button 
+              variant="ghost" 
+              onClick={() => scrollToSection('ask-rep')} 
+              className="text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+            >
               Contato
             </Button>
           </nav>
@@ -71,9 +87,9 @@ export function Header() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={isMenuOpen}
-              className="text-slate-700"
+              className="text-slate-700 h-12 w-12"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
@@ -86,35 +102,35 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-md shadow-lg"
             role="navigation"
           >
             <div className="flex flex-col px-4 py-4 space-y-2">
               <Button 
                 variant="ghost" 
-                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50" 
+                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50 h-12 text-base" 
                 onClick={() => scrollToSection('guidelines')}
               >
                 Diretrizes Clínicas
               </Button>
               <Button 
                 variant="ghost" 
-                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50" 
+                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50 h-12 text-base" 
                 onClick={() => scrollToSection('posologia')}
               >
                 Calculadora de Dose
               </Button>
               <Button 
                 variant="ghost" 
-                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50" 
+                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50 h-12 text-base" 
                 onClick={() => scrollToSection('biblioteca')}
               >
                 Biblioteca Científica
               </Button>
               <Button 
                 variant="ghost" 
-                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50" 
+                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50 h-12 text-base" 
                 onClick={() => scrollToSection('ask-rep')}
               >
                 Fale com Especialista
