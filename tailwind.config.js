@@ -16,9 +16,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        'sans': ['Source Sans 3', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        'serif': ['Source Serif 4', 'ui-serif', 'Georgia', 'serif'],
-        'mono': ['SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'monospace'],
+        'sans': ['Source Sans 3', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        'serif': ['Source Serif 4', 'ui-serif', 'Georgia', 'Times New Roman', 'serif'],
+        'mono': ['SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Consolas', 'Courier New', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -73,6 +73,14 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      // Utilitários específicos para ambiente médico
+      spacing: {
+        '18': '4.5rem', // Para botões médicos maiores
+        '88': '22rem',  // Para seções especiais
+      },
+      minHeight: {
+        'touch': '44px', // Área mínima de toque para dispositivos médicos
       },
     },
   },
