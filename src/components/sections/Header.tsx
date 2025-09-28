@@ -38,9 +38,11 @@ export function Header() {
         <div className="flex h-20 items-center justify-between">
           {/* Logo e Nome do Produto */}
           <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">E</span>
-            </div>
+            <img 
+              src="/ems-logo.png" 
+              alt="Logo da EMS Pharma" 
+              className="h-8 w-auto"
+            />
             <div className="hidden sm:block">
               <h1 className="text-xl font-semibold text-slate-900">Enavo Gotas</h1>
               <p className="text-xs text-slate-600">Ondansetrona Pediátrica</p>
@@ -51,7 +53,14 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-2" aria-label="Navegação principal">
             <Button 
               variant="ghost" 
-              onClick={() => scrollToSection('guidelines')} 
+              onClick={() => scrollToSection("introduction")} 
+              className="text-slate-700 hover:text-blue-600 hover:bg-blue-50"
+            >
+              Início
+            </Button>
+            <Button 
+              variant="ghost" 
+              onClick={() => scrollToSection("guidelines")} 
               className="text-slate-700 hover:text-blue-600 hover:bg-blue-50"
             >
               Diretrizes
@@ -110,7 +119,14 @@ export function Header() {
               <Button 
                 variant="ghost" 
                 className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50 h-12 text-base" 
-                onClick={() => scrollToSection('guidelines')}
+                onClick={() => scrollToSection("introduction")}
+              >
+                Início
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="justify-start text-slate-700 hover:text-blue-600 hover:bg-blue-50 h-12 text-base" 
+                onClick={() => scrollToSection("guidelines")}
               >
                 Diretrizes Clínicas
               </Button>

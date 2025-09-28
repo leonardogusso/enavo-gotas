@@ -6,7 +6,7 @@ export function Introduction() {
   return (
     <section 
       id="introduction" 
-      className="mx-auto max-w-6xl px-4 text-center scroll-mt-24 py-16 md:py-20"
+      className="mx-auto max-w-6xl px-4 text-center scroll-mt-28 py-16 md:py-20"
       aria-labelledby="hero-title"
     >
       <motion.div
@@ -18,6 +18,11 @@ export function Introduction() {
       >
         {/* Título Principal */}
         <div className="space-y-4">
+          <img 
+            src="/logo-enavo.jpeg" 
+            alt="Logo Enavo Gotas" 
+            className="mx-auto h-24 w-auto mb-4"
+          />
           <h1 id="hero-title" className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
             O único em gotas* para o tratamento de{' '}
             <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
