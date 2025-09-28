@@ -1,19 +1,84 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO e Meta Tags Otimizadas -->
+  <title>Enavo Gotas - Ondansetrona Pediátrica | Calculadora de Dose</title>
+  <meta name="description" content="Enavo Gotas: única ondansetrona em gotas do Brasil. Calculadora de dose pediátrica, diretrizes SBP, evidências científicas para tratamento de náuseas e vômitos em crianças." />
+  <meta name="keywords" content="ondansetrona pediátrica, enavo gotas, náuseas crianças, vômitos pediatria, calculadora dose, SBP, gastroenterite aguda, EMS" />
+  <meta name="author" content="EMS S/A - Enavo Gotas" />
+  <link rel="canonical" href="https://enavogotas.vercel.app/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://enavogotas.vercel.app/" />
+  <meta property="og:title" content="Enavo Gotas - Ondansetrona Pediátrica" />
+  <meta property="og:description" content="Acesse diretrizes, evidências e calculadora de dose para o manejo de náuseas e vômitos na pediatria." />
+  <meta property="og:image" content="https://enavogotas.vercel.app/images/enavo-social.jpg" />
+  <meta property="og:site_name" content="Enavo Gotas" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://enavogotas.vercel.app/" />
+  <meta name="twitter:title" content="Enavo Gotas - Ondansetrona Pediátrica" />
+  <meta name="twitter:description" content="Calculadora de dose e diretrizes para ondansetrona pediátrica" />
+  <meta name="twitter:image" content="https://enavogotas.vercel.app/images/enavo-social.jpg" />
+  
+  <!-- PWA e Ícones -->
+  <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Enavo Gotas" />
+  
+  <!-- Preload das fontes críticas -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" as="style" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap" as="style" />
+  
+  <!-- Google Analytics 4 - SUBSTITUA G-XXXXXXXXXX pelo seu ID real -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      // Configurações específicas para ferramenta médica
+      page_title: 'Enavo Gotas - Calculadora Médica',
+      custom_map: {
+        'custom_parameter_1': 'medical_tool_usage',
+        'custom_parameter_2': 'brand_engagement'
+      }
+    });
     
-    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#2563eb">
-    
-    <title>Enavo Gotas - Ondansetrona Pediátrica | Calculadora de Dose</title>
-    <meta name="description" content="Enavo Gotas: única ondansetrona em gotas do Brasil. Calculadora de dose pediátrica, diretrizes SBP, evidências científicas para tratamento de náuseas e vômitos em crianças." />
-    <meta name="keywords" content="ondansetrona pediátrica, enavo gotas, náuseas crianças, vômitos pediatria, calculadora dose, SBP, gastroenterite aguda, EMS" />
-    <link rel="canonical" href="https://enavo-gotas.vercel.app/" /> </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    // Detecta origem via QR Code
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('qr') === '1' || !document.referrer) {
+      gtag('event', 'qr_code_access', {
+        event_category: 'Brand Engagement',
+        event_label: 'Doctor accessed via QR Code'
+      });
+    }
+  </script>
+</head>
+<body>
+  <!-- Fallback para JavaScript desabilitado -->
+  <noscript>
+    <div style="padding: 20px; background: #fee2e2; border: 1px solid #fca5a5; margin: 20px; border-radius: 8px;">
+      <h2 style="color: #dc2626; margin: 0 0 10px 0;">JavaScript Necessário</h2>
+      <p style="margin: 0; color: #7f1d1d;">
+        Esta calculadora médica requer JavaScript habilitado para funcionar corretamente. 
+        Por favor, habilite JavaScript em seu navegador e recarregue a página.
+      </p>
+    </div>
+  </noscript>
+  
+  <!-- Container principal da aplicação -->
+  <div id="root"></div>
+  
+  <!-- Script principal da aplicação -->
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>
