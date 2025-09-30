@@ -8,22 +8,27 @@ export function Header() {
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      // Fecha o menu mobile primeiro
-      setIsMenuOpen(false);
-      
-      // Aguarda animação do menu fechar antes do scroll
-      setTimeout(() => {
-        const headerHeight = 80; // Altura real do header fixo
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+    if (!element) return;
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }, 300); // 300ms para aguardar menu fechar completamente
-    }
+    // Fecha o menu mobile primeiro
+    setIsMenuOpen(false);
+    
+    // Aguarda a animação do menu fechar (300ms) antes de fazer scroll
+    const scrollDelay = isMenuOpen ? 350 : 0;
+    
+    setTimeout(() => {
+      // Altura do header fixo - ajustada para mobile e desktop
+      const isMobile = window.innerWidth < 768;
+      const headerOffset = isMobile ? 70 : 80;
+      
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }, scrollDelay);
   };
 
   return (
@@ -37,17 +42,20 @@ export function Header() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           {/* Logo e Nome do Produto */}
-          <div className="flex items-center space-x-3">
+          <button 
+            onClick={() => scrollToSection('introduction')}
+            className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+          >
             <img 
               src="/ems-logo.png" 
               alt="Logo da EMS Pharma" 
               className="h-8 w-auto"
             />
-            <div className="hidden sm:block">
+            <div className="hidden sm:block text-left">
               <h1 className="text-xl font-semibold text-slate-900">Enavo Gotas</h1>
               <p className="text-xs text-slate-600">Ondansetrona Pediátrica</p>
             </div>
-          </div>
+          </button>
 
           {/* Navegação Desktop */}
           <nav className="hidden md:flex items-center space-x-2" aria-label="Navegação principal">
