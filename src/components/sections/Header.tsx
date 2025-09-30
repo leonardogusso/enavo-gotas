@@ -41,21 +41,12 @@ export function Header() {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
-          {/* Logo e Nome do Produto */}
+          {/* Nome do Produto */}
           <button 
             onClick={() => scrollToSection('introduction')}
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
-            <img 
-              src="/ems-logo.png" 
-              alt="Logo da EMS Pharma" 
-              className="h-8 w-auto"
-              onError={(e) => {
-                console.log('Erro ao carregar logo da EMS');
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-            <div className="hidden sm:block text-left">
+            <div className="text-left">
               <h1 className="text-xl font-semibold text-slate-900">Enavo Gotas</h1>
               <p className="text-xs text-slate-600">Ondansetrona Pediátrica</p>
             </div>

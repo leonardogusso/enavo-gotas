@@ -129,13 +129,6 @@ export function Calculator() {
           className="text-center mb-12"
         >
           <div className="flex items-center justify-center mb-4">
-            <img 
-              src="/logo-SBP.webp" 
-              alt="Logo da Sociedade Brasileira de Pediatria" 
-              className="h-12 w-auto mb-4"
-            />
-          </div>
-          <div className="flex items-center justify-center mb-4">
             <CalculatorIcon className="h-8 w-8 text-blue-600 mr-3" />
             <h2 className="text-3xl font-bold text-slate-900">Calculadora de Dose para GEA</h2>
           </div>

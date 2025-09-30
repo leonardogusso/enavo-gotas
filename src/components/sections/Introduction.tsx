@@ -16,13 +16,8 @@ export function Introduction() {
         viewport={{ once: true, amount: 0.2 }}
         className="space-y-12"
       >
-        {/* Logo e Título Principal */}
+        {/* Título Principal */}
         <div className="text-center space-y-6">
-          <img 
-            src="/logo-enavo.jpeg" 
-            alt="Logo Enavo Gotas" 
-            className="mx-auto h-16 w-auto"
-          />
           <h1 id="hero-title" className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight max-w-4xl mx-auto">
             O único em gotas* para o tratamento de{' '}
             <span className="text-blue-600">Náuseas e Vômitos</span>
