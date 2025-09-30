@@ -50,6 +50,10 @@ export function Header() {
               src="/ems-logo.png" 
               alt="Logo da EMS Pharma" 
               className="h-8 w-auto"
+              onError={(e) => {
+                console.log('Erro ao carregar logo da EMS');
+                e.currentTarget.style.display = 'none';
+              }}
             />
             <div className="hidden sm:block text-left">
               <h1 className="text-xl font-semibold text-slate-900">Enavo Gotas</h1>

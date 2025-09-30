@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from '@/components/ui/sonner'; // Criaremos este componente depois
+import { Toaster } from '@/components/ui/sonner';
 import IndexPage from './pages/Index';
 import NotFoundPage from './pages/NotFound';
 
@@ -15,7 +15,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
-      {/* <Toaster /> */} {/* Vamos adicionar o Toaster quando o componente existir */}
+      <Toaster />
     </QueryClientProvider>
   );
 }
