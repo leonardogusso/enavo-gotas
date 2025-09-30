@@ -132,7 +132,7 @@ export function Calculator() {
             <img 
               src="/logo-SBP.webp" 
               alt="Logo da Sociedade Brasileira de Pediatria" 
-              className="h-10 w-auto mb-4"
+              className="h-12 w-auto mb-4"
             />
           </div>
           <div className="flex items-center justify-center mb-4">
