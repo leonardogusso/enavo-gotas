@@ -21,7 +21,7 @@ export function Introduction() {
           <img 
             src="/logo-enavo.jpeg" 
             alt="Logo Enavo Gotas" 
-            className="mx-auto h-20 w-auto"
+            className="mx-auto h-12 w-auto"
           />
           <h1 id="hero-title" className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight max-w-4xl mx-auto">
             O único em gotas* para o tratamento de{' '}
