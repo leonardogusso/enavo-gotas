@@ -6,9 +6,10 @@ export function Introduction() {
   return (
     <section 
       id="introduction" 
-      className="medical-section medical-container scroll-mt-28"
+      className="bg-white py-20 scroll-mt-28"
       aria-labelledby="hero-title"
     >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <motion.div
         variants={fadeInUp}
         initial="hidden"
@@ -139,6 +140,7 @@ export function Introduction() {
           </div>
         </motion.div>
       </motion.div>
+      </div>
     </section>
   );
 }

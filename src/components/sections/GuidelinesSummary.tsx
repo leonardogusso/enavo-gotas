@@ -58,9 +58,10 @@ export function GuidelinesSummary() {
   return (
     <section 
       id="guidelines" 
-      className="mx-auto max-w-6xl px-4 scroll-mt-32 py-20 bg-white"
+      className="bg-slate-50 py-20"
       aria-labelledby="guidelines-title"
     >
+      <div className="mx-auto max-w-6xl px-4 scroll-mt-32">
       <motion.header
         variants={fadeInUp}
         initial="hidden"
@@ -83,27 +84,47 @@ export function GuidelinesSummary() {
         viewport={{ once: true, amount: 0.2 }}
       >
         <Accordion type="single" collapsible value={value} onValueChange={setValue} className="w-full space-y-4">
-          {guidelines.map((item, index) => (
-            <AccordionItem key={index} value={item.title} className="border-b-0">
-              <Card className="overflow-hidden transition-all duration-200 hover:shadow-md border-blue-100">
-                <AccordionTrigger className="p-6 hover:no-underline hover:bg-slate-50">
-                  <div className="flex items-center space-x-4">
-                    <div className="text-blue-600">{item.icon}</div>
-                    <h3 className="text-left text-slate-900 text-base font-semibold">{item.title}</h3>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="px-6 pb-6 pt-0 border-t border-blue-100">
-                    <div className="pt-4">
-                      {item.content()}
+          {guidelines.map((item, index) => {
+            // Cores de fundo diferentes para cada card
+            const cardColors = [
+              "bg-green-50 border-green-200", // Verde para Diferenciais
+              "bg-blue-50 border-blue-200",   // Azul para GEA
+              "bg-amber-50 border-amber-200"  // Amarelo para Endosso
+            ];
+            const iconColors = [
+              "text-green-600", // Verde para Diferenciais
+              "text-blue-600",  // Azul para GEA
+              "text-amber-600"  // Amarelo para Endosso
+            ];
+            const hoverColors = [
+              "hover:bg-green-100", // Verde para Diferenciais
+              "hover:bg-blue-100",  // Azul para GEA
+              "hover:bg-amber-100"  // Amarelo para Endosso
+            ];
+            
+            return (
+              <AccordionItem key={index} value={item.title} className="border-b-0">
+                <Card className={`overflow-hidden transition-all duration-200 hover:shadow-md ${cardColors[index]}`}>
+                  <AccordionTrigger className={`p-6 hover:no-underline ${hoverColors[index]}`}>
+                    <div className="flex items-center space-x-4">
+                      <div className={iconColors[index]}>{item.icon}</div>
+                      <h3 className="text-left text-slate-900 text-base font-semibold">{item.title}</h3>
                     </div>
-                  </div>
-                </AccordionContent>
-              </Card>
-            </AccordionItem>
-          ))}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className={`px-6 pb-6 pt-0 border-t ${cardColors[index].includes('green') ? 'border-green-200' : cardColors[index].includes('blue') ? 'border-blue-200' : 'border-amber-200'}`}>
+                      <div className="pt-4">
+                        {item.content()}
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </Card>
+              </AccordionItem>
+            );
+          })}
         </Accordion>
       </motion.div>
+      </div>
     </section>
   );
 }
