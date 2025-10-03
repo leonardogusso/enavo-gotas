@@ -41,15 +41,15 @@ export function Header() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm"
+      className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-md border-b border-gray-200 shadow-sm"
       role="banner"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex h-16 md:h-20 items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex h-16 md:h-18 items-center justify-between">
           {/* Logo EMS + Enavo */}
           <button 
             onClick={() => scrollToSection('introduction')}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 hover:opacity-80 transition-all duration-300"
           >
             <img 
               src="/ems-logo.png" 
@@ -57,19 +57,21 @@ export function Header() {
               className="h-8 md:h-10 w-auto"
             />
             <div className="hidden sm:block">
-              <div className="text-lg md:text-xl font-bold text-slate-900">Enavo Gotas</div>
-              <div className="text-xs text-slate-500">Ondansetrona Pediátrica</div>
+              <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+                Enavo Gotas
+              </div>
+              <div className="text-xs text-gray-500">Ondansetrona Pediátrica</div>
             </div>
           </button>
 
-          {/* Nav Desktop */}
+          {/* Nav Desktop - Instagram style */}
           <nav className="hidden md:flex items-center gap-1" aria-label="Navegação principal">
             {navItems.map((item) => (
               <Button 
                 key={item.id}
                 variant="ghost" 
                 onClick={() => scrollToSection(item.id)} 
-                className="text-slate-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-colors"
+                className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 font-medium transition-all duration-300 rounded-full"
               >
                 {item.label}
               </Button>
@@ -81,7 +83,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden h-10 w-10 text-slate-700"
+            className="md:hidden h-10 w-10 text-gray-700 hover:text-purple-600 rounded-full"
             aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -89,7 +91,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Dropdown Mobile - Minimalista */}
+      {/* Dropdown Mobile - Instagram style */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -97,7 +99,7 @@ export function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden border-t border-slate-200 bg-white"
+            className="md:hidden border-t border-gray-200 bg-white"
           >
             <nav className="px-4 py-3 space-y-1">
               {navItems.map((item) => (
@@ -105,7 +107,7 @@ export function Header() {
                   key={item.id}
                   variant="ghost"
                   onClick={() => scrollToSection(item.id)}
-                  className="w-full justify-start h-11 text-slate-700 hover:text-blue-600 hover:bg-blue-50 font-medium"
+                  className="w-full justify-start h-11 text-gray-700 hover:text-purple-600 hover:bg-purple-50 font-medium rounded-full"
                 >
                   {item.label}
                 </Button>

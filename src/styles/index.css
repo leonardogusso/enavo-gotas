@@ -1,43 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Fontes profissionais - IBM Plex para área médica */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
-
 @layer base {
   :root {
-    /* Design System EMS - Azul Corporativo */
+    /* Design System EMS - Paleta Oficial + Instagram Style */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 13%;
     
-    /* Azul EMS como Primary */
-    --primary: 217 91% 60%; /* #3B82F6 - Azul EMS característico */
-    --primary-foreground: 210 40% 98%;
+    /* Roxo EMS como Primary - Inspirado no Instagram */
+    --primary: 280 75% 60%; /* #AF47E8 - Lilás/Roxo EMS */
+    --primary-foreground: 0 0% 100%;
     
-    /* Neutros profissionais */
-    --secondary: 215 20% 65%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Roxo Escuro EMS como Secondary */
+    --secondary: 280 45% 42%; /* #76309B - Roxo Escuro EMS */
+    --secondary-foreground: 0 0% 100%;
     
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    /* Turquesa EMS como Accent */
+    --accent: 180 65% 55%; /* Turquesa EMS */
+    --accent-foreground: 0 0% 13%;
     
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Neutros Instagram-style */
+    --muted: 0 0% 98%;
+    --muted-foreground: 0 0% 45%;
     
     /* Estados */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
     
-    /* Borders e UI */
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 217 91% 60%;
-    --radius: 0.75rem;
+    /* Borders e UI - Instagram-style (mais suaves) */
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 280 75% 60%;
+    --radius: 1rem; /* Bordas mais arredondadas estilo Instagram */
     
     /* Fontes */
-    --font-primary: 'IBM Plex Sans', -apple-system, system-ui, sans-serif;
-    --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+    --font-primary: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Monaco, Consolas, monospace;
   }
 }
 
@@ -47,7 +48,7 @@
   }
   
   body {
-    @apply bg-white text-slate-700;
+    @apply bg-gray-50 text-gray-900;
     font-family: var(--font-primary);
     font-size: 16px;
     line-height: 1.6;
@@ -74,10 +75,14 @@
     @apply text-slate-600 leading-relaxed;
   }
   
-  /* Display de Dosagem - Monospace para números */
+  /* Display de Dosagem - Monospace para números com cores EMS */
   .dosage-display {
     font-family: var(--font-mono);
-    @apply text-6xl font-bold text-blue-600;
+    @apply text-6xl font-bold;
+    background: linear-gradient(135deg, #AF47E8 0%, #76309B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     line-height: 1;
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
@@ -86,43 +91,44 @@
   /* Dados Clínicos */
   .clinical-data {
     font-family: var(--font-mono);
-    @apply text-lg font-semibold text-slate-800;
+    @apply text-lg font-semibold text-gray-800;
     font-variant-numeric: tabular-nums;
   }
 }
 
 @layer components {
-  /* Cards Médicos - Sistema Unificado */
+  /* Cards Instagram-style - Clean e Minimalista */
   .medical-card {
-    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+    @apply bg-white border border-gray-200 rounded-2xl shadow-sm;
   }
   
   .medical-card-hover {
-    @apply medical-card hover:border-blue-200 hover:shadow-md transition-all duration-200;
+    @apply medical-card hover:border-purple-300 hover:shadow-lg transition-all duration-300 ease-out;
   }
   
-  /* Botões Médicos */
+  /* Botões Instagram-style */
   .medical-button {
-    @apply h-11 px-5 font-semibold rounded-lg transition-all duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+    @apply h-11 px-6 font-semibold rounded-full transition-all duration-300;
+    @apply focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
   }
   
   .medical-button-primary {
-    @apply medical-button bg-blue-600 text-white hover:bg-blue-700 shadow-sm;
+    @apply medical-button text-white shadow-md hover:shadow-lg;
+    background: linear-gradient(135deg, #AF47E8 0%, #76309B 100%);
   }
   
   .medical-button-secondary {
-    @apply medical-button bg-white border-2 border-slate-300 text-slate-700 hover:bg-slate-50;
+    @apply medical-button bg-white border-2 border-gray-300 text-gray-800 hover:bg-gray-50;
   }
   
-  /* Badges */
+  /* Badges Instagram-style */
   .medical-badge {
-    @apply inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full;
-    @apply bg-slate-100 text-slate-700 border border-slate-200;
+    @apply inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-full;
+    @apply bg-gray-100 text-gray-700 border border-gray-200;
   }
   
   .medical-badge-primary {
-    @apply medical-badge bg-blue-50 text-blue-700 border-blue-200;
+    @apply medical-badge bg-purple-50 text-purple-700 border-purple-200;
   }
   
   /* Seções */
@@ -131,21 +137,21 @@
   }
   
   .medical-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  /* Inputs Touch-Friendly */
+  /* Inputs Touch-Friendly Instagram-style */
   input, select, textarea, button {
     @apply min-h-[44px]; /* iOS touch target */
   }
   
-  /* Alerts Médicos */
+  /* Alerts Instagram-style */
   .medical-alert {
-    @apply rounded-lg border-l-4 p-4;
+    @apply rounded-2xl border-l-4 p-4;
   }
   
   .medical-alert-info {
-    @apply medical-alert bg-blue-50 border-blue-500;
+    @apply medical-alert bg-purple-50 border-purple-500;
   }
   
   .medical-alert-warning {
@@ -153,7 +159,7 @@
   }
   
   .medical-alert-success {
-    @apply medical-alert bg-green-50 border-green-500;
+    @apply medical-alert bg-teal-50 border-teal-500;
   }
   
   .medical-alert-error {
