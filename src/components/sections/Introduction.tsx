@@ -1,149 +1,127 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { CheckCircle2 } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
 
 export function Introduction() {
+  const features = [
+    {
+      title: "Único no Brasil",
+      description: "Primeira e única ondansetrona em gotas do mercado brasileiro",
+      icon: "1º"
+    },
+    {
+      title: "Precisão por Gota",
+      description: "0,4mg por gota - dosagem precisa para cada paciente",
+      icon: "0,4mg"
+    },
+    {
+      title: "Sabor Morango",
+      description: "Alta palatabilidade facilita a adesão ao tratamento",
+      icon: "🍓"
+    }
+  ];
+
   return (
     <section 
       id="introduction" 
-      className="medical-section medical-container scroll-mt-28"
+      className="pt-24 pb-12 md:pt-32 md:pb-20 px-4"
       aria-labelledby="hero-title"
     >
-      <motion.div
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        className="space-y-12"
-      >
-        {/* Logo e Título Principal */}
-        <div className="text-center space-y-6">
-          <img 
-            src="/logo-enavo.jpeg" 
-            alt="Logo Enavo Gotas" 
-            className="mx-auto h-20 w-auto"
-          />
-          <h1 id="hero-title" className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight max-w-4xl mx-auto">
-            O único em gotas* para o tratamento de{' '}
-            <span className="text-blue-600">Náuseas e Vômitos</span>
-          </h1>
-          <p className="text-sm text-slate-500 italic">
-            *única ondansetrona em gotas no mercado brasileiro
-          </p>
-        </div>
-
-        {/* Cards de Diferenciais - Design Limpo */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {/* Card 1 */}
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="medical-card-elevated p-6 hover:border-blue-200 transition-colors"
-          >
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                <span className="text-blue-600 text-xl font-bold">1º</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                  Único no Brasil
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Primeira e única formulação em gotas de ondansetrona disponível no mercado brasileiro.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Card 2 */}
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ delay: 0.1 }}
-            className="medical-card-elevated p-6 hover:border-blue-200 transition-colors"
-          >
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                <span className="clinical-data text-blue-600 text-base">0,4mg</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                  Precisão por Gota
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Concentração precisa que permite ajuste fino da dosagem conforme peso e idade do paciente.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Card 3 */}
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ delay: 0.2 }}
-            className="medical-card-elevated p-6 hover:border-blue-200 transition-colors"
-          >
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🍓</span>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                  Sabor Morango
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Palatabilidade que facilita significativamente a adesão ao tratamento pediátrico.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Banner de Respaldo Científico - Tom Profissional */}
+      <div className="max-w-5xl mx-auto">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="max-w-4xl mx-auto"
+          viewport={{ once: true, amount: 0.2 }}
+          className="space-y-12"
         >
-          <div className="medical-card border-l-4 border-blue-600 p-6">
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-base font-semibold text-slate-900 mb-2">
-                  Respaldado por Evidências Científicas
-                </h3>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
-                  <div className="flex items-center space-x-2">
-                    <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                    <span>Citado nominalmente pela SBP</span>
+          {/* Logo + Hero Text */}
+          <div className="text-center space-y-6">
+            <img 
+              src="/logo-enavo.jpeg" 
+              alt="Enavo Gotas" 
+              className="mx-auto h-16 md:h-20 w-auto"
+            />
+            
+            <h1 id="hero-title" className="text-3xl md:text-5xl font-bold text-slate-900 leading-tight max-w-3xl mx-auto">
+              O único em gotas* para{' '}
+              <span className="text-blue-600">Náuseas e Vômitos</span>
+            </h1>
+            
+            <p className="text-sm text-slate-500 italic">
+              *única ondansetrona em gotas no mercado brasileiro
+            </p>
+          </div>
+
+          {/* Cards de Diferenciais - Grid Limpo */}
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white border border-slate-200 rounded-xl p-5 md:p-6 hover:border-blue-200 hover:shadow-md transition-all"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-lg font-bold text-blue-600">
+                    {feature.icon}
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                    <span>Aprovado pelo Ministério da Saúde</span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-lg font-bold text-slate-900 mb-1">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                    <span>Recomendado por diretrizes internacionais</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Banner de Credibilidade - Sutil */}
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 md:p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-blue-600" />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-base font-bold text-slate-900 mb-3">
+                    Respaldo Científico
+                  </h3>
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                      <span>Diretrizes SBP</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                      <span>Ministério da Saúde</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" />
+                      <span>Protocolos Internacionais</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
