@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Calculator as CalculatorIcon, Baby, Scale, Droplets, AlertTriangle, FileText } from 'lucide-react';
+import { Calculator as CalculatorIcon, Baby, Scale, Droplets, AlertTriangle, FileText, CheckCircle2 } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
 import { brandAnalytics, useSectionTracking } from '@/lib/brand-analytics';
 
@@ -18,7 +18,6 @@ type DoseResult = {
   isWarning?: boolean;
 };
 
-// Lógica de cálculo focada em Gastroenterite Aguda (GEA) - baseada nas diretrizes
 const calculateGEADose = (weightNum: number, ageNum: number): DoseResult => {
   if (ageNum < 6) {
     return {
@@ -52,27 +51,12 @@ const calculateGEADose = (weightNum: number, ageNum: number): DoseResult => {
 };
 
 export function Calculator() {
-  const [weight, setWeight] = useState('');
-  const [ageMonths, setAgeMonths] = useState('');
-  const [result, setResult] = useState<DoseResult | null>(null);
-  const [startTime, setStartTime] = useState(Date.now());
-  const [interactionCount, setInteractionCount] = useState(0);
-
-  // Rastreia tempo na seção
-  useSectionTracking('posologia');
-
-  useEffect(() => {
-    setStartTime(Date.now());
-  }, []);
-
   const handleCalculate = () => {
     const weightNum = parseFloat(weight);
     const ageNum = parseInt(ageMonths);
 
-    // Incrementa contador de interações
     setInteractionCount(prev => prev + 1);
 
-    // Validação de entrada
     if (isNaN(weightNum) || weightNum <= 0 || isNaN(ageNum) || ageNum < 0) {
       const errorResult: DoseResult = {
         doseMg: 0,
@@ -82,248 +66,256 @@ export function Calculator() {
         isWarning: true
       };
       setResult(errorResult);
-
-      // ANALYTICS: Rastrear erro de input
       brandAnalytics.trackCalculatorError('invalid_input', { weight, ageMonths });
       return;
     }
 
-    // Calcular resultado
-    const calculatedResult = calculateGEADose(weightNum, ageNum);
-    setResult(calculatedResult);
+    const calculatedDose = calculateGEADose(weightNum, ageNum);
+    setResult(calculatedDose);
 
-    // ANALYTICS: Rastrear uso da calculadora
-    brandAnalytics.trackCalculatorUsage('GEA', weightNum, ageNum, calculatedResult);
+    brandAnalytics.trackCalculatorUsed({
+      weight: weightNum,
+      ageMonths: ageNum,
+      doseMg: calculatedDose.doseMg,
+      drops: calculatedDose.drops,
+      category: calculatedDose.category
+    });
 
-    // ANALYTICS: Rastrear engajamento se passou tempo suficiente
-    const timeSpent = Date.now() - startTime;
-    if (timeSpent > 10000) { // Mais de 10 segundos
-      brandAnalytics.trackCalculatorEngagement(timeSpent, interactionCount);
-    }
-
-    // Dispara evento customizado para rastreamento de sessão
-    window.dispatchEvent(new CustomEvent('calculator-used'));
+    const timeSpent = Math.round((Date.now() - startTime) / 1000);
+    brandAnalytics.trackCalculatorEngagement(timeSpent, interactionCount + 1);
   };
 
-  const clearFields = () => {
+  const handleClear = () => {
     setWeight('');
     setAgeMonths('');
     setResult(null);
-    setInteractionCount(prev => prev + 1);
-    setStartTime(Date.now()); // Reset timer
-  };
-
-  const handleInputChange = (setter: (value: string) => void) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setter(e.target.value);
-    setInteractionCount(prev => prev + 1);
+    setStartTime(Date.now());
   };
 
   return (
-    <section id="posologia" className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50 scroll-mt-20">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <section 
+      id="posologia" 
+      className="medical-section bg-slate-50"
+      aria-labelledby="calculator-title"
+    >
+      <div className="medical-container">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-12"
+          className="space-y-8"
         >
-          <div className="flex items-center justify-center mb-4">
-            <CalculatorIcon className="h-8 w-8 text-blue-600 mr-3" />
-            <h2 className="text-3xl font-bold text-slate-900">Calculadora de Dose para GEA</h2>
+          {/* Cabeçalho da Seção */}
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <h2 id="calculator-title" className="text-3xl md:text-4xl font-semibold text-slate-900">
+              Calculadora de Dose para GEA
+            </h2>
+            <p className="text-base text-slate-600">
+              Ferramenta de auxílio para cálculo de dose conforme diretriz da Sociedade Brasileira de Pediatria
+            </p>
           </div>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Calcule a dose de ENAVO® GOTAS (0,4 mg/gota) para Gastroenterite Aguda, 
-            com base nas diretrizes da SBP e internacionais.
-          </p>
-        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            <Card className="border-blue-200 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-                <CardTitle className="flex items-center">
-                  <Baby className="h-5 w-5 mr-2" /> 
-                  Dados do Paciente
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="age" className="text-sm font-medium text-slate-700">
-                    Idade do Paciente (meses) *
-                  </Label>
-                  <Input 
-                    id="age" 
-                    type="number" 
-                    placeholder="Ex: 18" 
-                    value={ageMonths} 
-                    onChange={handleInputChange(setAgeMonths)} 
-                    min="0" 
-                    max="240"
-                    className="text-lg h-12"
-                  />
-                  <p className="text-xs text-slate-500">
-                    Para crianças acima de 2 anos, multiplique a idade em anos por 12
-                  </p>
+          {/* Card Principal da Calculadora */}
+          <div className="max-w-3xl mx-auto">
+            <Card className="border-2 border-blue-200 shadow-lg overflow-hidden">
+              {/* Header com Cor */}
+              <CardHeader className="bg-blue-600 text-white pb-6">
+                <div className="flex items-center justify-center space-x-3">
+                  <CalculatorIcon className="h-6 w-6" />
+                  <CardTitle className="text-xl font-semibold">
+                    Calculadora Pediátrica Enavo Gotas
+                  </CardTitle>
                 </div>
+              </CardHeader>
 
-                <div className="space-y-2">
-                  <Label htmlFor="weight" className="text-sm font-medium text-slate-700">
-                    Peso do Paciente (kg) *
-                  </Label>
-                  <div className="relative">
-                    <Scale className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                    <Input 
-                      id="weight" 
-                      type="number" 
-                      placeholder="Ex: 12.5" 
-                      value={weight} 
-                      onChange={handleInputChange(setWeight)} 
-                      className="pl-10 text-lg h-12" 
-                      min="0" 
-                      max="100"
-                      step="0.1" 
+              <CardContent className="p-6 md:p-8 space-y-6 bg-white">
+                {/* Grid de Inputs */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Peso */}
+                  <div className="space-y-3">
+                    <Label htmlFor="weight" className="text-base font-semibold text-slate-900 flex items-center space-x-2">
+                      <Scale className="h-4 w-4 text-blue-600" />
+                      <span>Peso do Paciente</span>
+                    </Label>
+                    <Input
+                      id="weight"
+                      type="number"
+                      value={weight}
+                      onChange={(e) => setWeight(e.target.value)}
+                      placeholder="8.0"
+                      className="h-12 text-base border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                      step="0.1"
+                      min="0"
+                      aria-describedby="weight-helper"
                     />
+                    <p id="weight-helper" className="text-sm text-slate-500">
+                      Peso em quilogramas (kg)
+                    </p>
+                  </div>
+
+                  {/* Idade */}
+                  <div className="space-y-3">
+                    <Label htmlFor="age" className="text-base font-semibold text-slate-900 flex items-center space-x-2">
+                      <Baby className="h-4 w-4 text-blue-600" />
+                      <span>Idade do Paciente</span>
+                    </Label>
+                    <Input
+                      id="age"
+                      type="number"
+                      value={ageMonths}
+                      onChange={(e) => setAgeMonths(e.target.value)}
+                      placeholder="12"
+                      className="h-12 text-base border-slate-300 focus:border-blue-500 focus:ring-blue-500"
+                      step="1"
+                      min="0"
+                      aria-describedby="age-helper"
+                    />
+                    <p id="age-helper" className="text-sm text-slate-500">
+                      Idade em meses completos
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex space-x-3 pt-4">
+                {/* Botões de Ação */}
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Button 
-                    onClick={handleCalculate} 
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-medium h-12" 
-                    disabled={!weight || !ageMonths}
+                    onClick={handleCalculate}
+                    className="flex-1 h-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm"
                   >
-                    <CalculatorIcon className="h-5 w-5 mr-2" /> 
+                    <CalculatorIcon className="mr-2 h-5 w-5" />
                     Calcular Dose
                   </Button>
                   <Button 
-                    onClick={clearFields} 
-                    variant="outline" 
-                    className="px-6 py-3 h-12"
+                    onClick={handleClear}
+                    variant="outline"
+                    className="h-12 border-2 border-slate-300 text-slate-700 font-semibold hover:bg-slate-50"
                   >
                     Limpar
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
 
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2, delay: 0.1 }}
-          >
-            <Card className="border-green-200 shadow-lg h-full hover:shadow-xl transition-shadow">
-              <CardHeader className="bg-gradient-to-r from-green-600 to-green-700 text-white">
-                <CardTitle className="flex items-center">
-                  <Droplets className="h-5 w-5 mr-2" /> 
-                  Resultado da Dosagem
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 flex flex-col justify-center items-center h-full min-h-[400px]">
-                {result ? (
-                  <div className="space-y-6 w-full">
+                {/* Resultado da Dose */}
+                {result && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="space-y-4 pt-6 border-t-2 border-slate-200"
+                  >
                     {result.isWarning ? (
-                      <div className="text-center p-6 bg-amber-50 rounded-lg border border-amber-200">
-                        <AlertTriangle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
-                        <div className="text-lg font-semibold text-amber-800 mb-2">
-                          {result.category}
-                        </div>
-                        <div className="text-sm text-amber-700 leading-relaxed">
+                      <Alert className="border-l-4 border-amber-500 bg-amber-50">
+                        <AlertTriangle className="h-5 w-5 text-amber-600" />
+                        <AlertTitle className="text-amber-900 font-semibold text-base">
+                          Atenção
+                        </AlertTitle>
+                        <AlertDescription className="text-amber-800 text-sm">
                           {result.message}
-                        </div>
-                      </div>
+                        </AlertDescription>
+                      </Alert>
                     ) : (
                       <>
-                        <div className="text-center p-8 bg-green-50 rounded-lg border border-green-200">
-                          <div className="dosage-display text-6xl font-bold text-green-600 mb-3">
-                            {Math.round(result.drops)}
+                        {/* Display da Dose */}
+                        <div className="bg-blue-50 rounded-lg p-6 text-center space-y-4">
+                          <div className="flex items-center justify-center space-x-2">
+                            <CheckCircle2 className="h-6 w-6 text-blue-600" />
+                            <h3 className="text-lg font-semibold text-slate-900">
+                              Dose Calculada
+                            </h3>
                           </div>
-                          <div className="text-lg font-medium text-green-700 mb-1">gotas</div>
-                          <div className="text-sm text-green-600">
-                            ENAVO® GOTAS (0,4 mg/gota)
+                          
+                          <div className="space-y-1">
+                            <div className="flex items-baseline justify-center space-x-2">
+                              <Droplets className="h-8 w-8 text-blue-600 mb-2" />
+                              <span className="dosage-display">
+                                {Math.round(result.drops)}
+                              </span>
+                              <span className="text-2xl font-semibold text-slate-700">
+                                gotas
+                              </span>
+                            </div>
+                            <p className="clinical-data text-slate-700">
+                              ({result.doseMg}mg de ondansetrona)
+                            </p>
                           </div>
+
+                          <Badge variant="outline" className="text-sm font-medium bg-white border-blue-200 text-blue-700">
+                            {result.category}
+                          </Badge>
                         </div>
-                        
-                        <div className="space-y-3">
-                           <div className="flex justify-between items-center p-4 bg-slate-50 rounded-lg">
-                            <span className="font-medium text-slate-700">Dose calculada:</span>
-                            <span className="clinical-data font-bold text-slate-800 text-lg">
-                              {result.doseMg} mg
-                            </span>
-                          </div>
-                          <div className="flex justify-between items-center p-4 bg-slate-50 rounded-lg">
-                            <span className="font-medium text-slate-700">Categoria:</span>
-                            <Badge variant="outline" className="text-slate-600 border-slate-300">
-                              {result.category}
-                            </Badge>
-                          </div>
-                          <div className="flex justify-between items-center p-4 bg-slate-50 rounded-lg">
-                            <span className="font-medium text-slate-700">Frequência:</span>
-                            <span className="font-semibold text-slate-800">Dose única</span>
+
+                        {/* Informações Adicionais */}
+                        <div className="medical-card p-4 space-y-3">
+                          <div className="flex items-start space-x-3">
+                            <FileText className="h-5 w-5 text-slate-600 flex-shrink-0 mt-0.5" />
+                            <div className="space-y-2 text-sm text-slate-700">
+                              <p className="font-semibold">Posologia GEA:</p>
+                              <ul className="space-y-1 text-slate-600">
+                                <li>• Administrar dose única via oral</li>
+                                <li>• Pode repetir após 12 horas se necessário</li>
+                                <li>• Dose máxima: conforme faixa de peso</li>
+                              </ul>
+                            </div>
                           </div>
                         </div>
                       </>
                     )}
-                  </div>
-                ) : (
-                  <div className="text-center text-slate-400">
-                    <CalculatorIcon className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                    <p className="text-lg">Insira os dados para calcular a dose</p>
-                    <p className="text-sm mt-2">
-                      Fórmula baseada em diretrizes para GEA
-                    </p>
-                  </div>
+                  </motion.div>
                 )}
+
+                {/* Disclaimer Médico */}
+                <Alert className="border-l-4 border-slate-400 bg-slate-50">
+                  <AlertDescription className="text-xs text-slate-600 leading-relaxed">
+                    <strong className="text-slate-700">Aviso importante:</strong> Esta calculadora é uma ferramenta auxiliar de consulta. 
+                    A decisão terapêutica final cabe ao médico prescritor, considerando o quadro clínico completo do paciente. 
+                    Consulte sempre a bula e diretrizes atualizadas da SBP.
+                  </AlertDescription>
+                </Alert>
               </CardContent>
             </Card>
-          </motion.div>
-        </div>
-        
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="mt-8 space-y-4"
-        >
-          {/* Disclaimer médico obrigatório */}
-          <Alert className="border-red-200 bg-red-50">
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle className="warning-text font-semibold">
-              ⚠️ AVISO MÉDICO OBRIGATÓRIO
-            </AlertTitle>
-            <AlertDescription className="text-red-700 leading-relaxed">
-              Esta calculadora é apenas uma <strong>FERRAMENTA AUXILIAR</strong> e não substitui o julgamento clínico profissional. 
-              SEMPRE verifique os cálculos com a bula oficial e considere o quadro clínico completo do paciente. 
-              O médico é o único responsável pela prescrição.
-            </AlertDescription>
-          </Alert>
+          </div>
 
-          {/* Informação sobre outras indicações */}
-          <Alert>
-            <FileText className="h-4 w-4" />
-            <AlertTitle className="font-semibold">Outras Indicações (Conforme Bula)</AlertTitle>
-            <AlertDescription>
-              <div className="space-y-2">
-                <p>
-                  <strong>Quimioterapia (crianças ≥2 anos):</strong> 4 mg (10 gotas) para pacientes com mais de 10 kg, 
-                  a cada 12 horas por até 5 dias.
-                </p>
-                <p className="text-sm text-slate-600">
-                  Esta calculadora foca em GEA. Para outras indicações, consulte sempre a bula oficial.
-                </p>
+          {/* Referência à Diretriz */}
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="max-w-3xl mx-auto"
+          >
+            <div className="medical-card p-6 bg-white">
+              <div className="flex items-start space-x-4">
+                <img 
+                  src="/logo-SBP.webp" 
+                  alt="Logo SBP" 
+                  className="w-16 h-16 object-contain flex-shrink-0"
+                />
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-slate-900">
+                    Baseado nas Diretrizes da SBP
+                  </h4>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Este cálculo segue as recomendações da Sociedade Brasileira de Pediatria 
+                    para o tratamento de náuseas e vômitos associados à gastroenterite aguda em pediatria.
+                  </p>
+                </div>
               </div>
-            </AlertDescription>
-          </Alert>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
   );
-}
+} [weight, setWeight] = useState('');
+  const [ageMonths, setAgeMonths] = useState('');
+  const [result, setResult] = useState<DoseResult | null>(null);
+  const [startTime, setStartTime] = useState(Date.now());
+  const [interactionCount, setInteractionCount] = useState(0);
+
+  useSectionTracking('posologia');
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
+  const
