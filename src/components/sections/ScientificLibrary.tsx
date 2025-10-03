@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -9,13 +8,10 @@ import {
   Users,
   Shield,
   Microscope,
-  Heart,
-  Baby,
   Globe
 } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
 
-// Estrutura de dados para o conteúdo da biblioteca
 const libraryData = [
   {
     id: 'pharmacology',
@@ -58,7 +54,7 @@ const libraryData = [
   },
   {
     id: 'guidelines',
-    title: 'Diretrizes Internacionais e Nacionais',
+    title: 'Diretrizes Nacionais e Internacionais',
     icon: <Globe className="h-5 w-5" />,
     badge: 'Consenso',
     content: [
@@ -75,21 +71,23 @@ export function ScientificLibrary() {
   const [openSection, setOpenSection] = useState<string | null>(libraryData[0].id);
 
   return (
-    <section id="biblioteca" className="py-20 bg-slate-50 scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <section id="biblioteca" className="py-12 md:py-20 bg-slate-50">
+      <div className="max-w-4xl mx-auto px-4">
         <motion.div
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <div className="flex items-center justify-center mb-4">
-            <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
-            <h2 className="text-3xl font-bold text-slate-900">Biblioteca Científica</h2>
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-blue-100 rounded-2xl mb-4">
+            <BookOpen className="h-7 w-7 text-blue-600" />
           </div>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Evidências científicas atualizadas sobre o uso de ondansetrona na pediatria.
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
+            Biblioteca Científica
+          </h2>
+          <p className="text-slate-600 max-w-2xl mx-auto">
+            Evidências atualizadas sobre ondansetrona na pediatria
           </p>
         </motion.div>
 
@@ -108,35 +106,41 @@ export function ScientificLibrary() {
             onValueChange={setOpenSection}
           >
             {libraryData.map((section) => (
-              <AccordionItem key={section.id} value={section.id} className="border-b-0 mb-4">
-                <Card className="overflow-hidden transition-all duration-200 hover:shadow-md border-slate-200 hover:border-blue-300">
-                  <AccordionTrigger className="p-6 hover:no-underline hover:bg-slate-50/50 w-full">
+              <AccordionItem key={section.id} value={section.id} className="border-b-0">
+                <div className="bg-white border border-slate-200 rounded-xl overflow-hidden hover:border-blue-200 hover:shadow-md transition-all mb-4">
+                  <AccordionTrigger className="px-5 py-4 hover:no-underline hover:bg-slate-50">
                     <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center space-x-4 text-left">
-                        <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-blue-100 rounded-lg text-blue-600">
+                      <div className="flex items-center gap-4 text-left">
+                        <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-blue-50 rounded-lg text-blue-600">
                           {section.icon}
                         </div>
                         <div>
-                          <h3 className="text-lg font-semibold text-slate-900">{section.title}</h3>
-                          {section.badge && <Badge variant="outline" className="mt-1 text-xs">{section.badge}</Badge>}
+                          <h3 className="text-base font-semibold text-slate-900">{section.title}</h3>
+                          {section.badge && (
+                            <Badge variant="outline" className="mt-1.5 text-xs border-blue-200 text-blue-700">
+                              {section.badge}
+                            </Badge>
+                          )}
                         </div>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="px-6 pb-6 pt-0 border-t">
-                      <div className="space-y-6 pt-4">
+                    <div className="px-5 pb-5 pt-2 border-t border-slate-200">
+                      <div className="space-y-5">
                         {section.content.map((item, itemIndex) => (
                           <div key={itemIndex} className="border-l-4 border-blue-200 pl-4">
-                            {item.subtitle && <h4 className="font-semibold text-slate-900 mb-2">{item.subtitle}</h4>}
-                            <p className="text-slate-700 leading-relaxed mb-3">{item.text}</p>
+                            {item.subtitle && (
+                              <h4 className="font-semibold text-slate-900 mb-2">{item.subtitle}</h4>
+                            )}
+                            <p className="text-slate-700 leading-relaxed mb-3 text-sm">{item.text}</p>
                             {item.references && (
-                              <div className="space-y-1">
-                                <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">Referências:</p>
+                              <div className="space-y-1.5">
+                                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Referências:</p>
                                 {item.references.map((ref, refIndex) => (
-                                  <div key={refIndex} className="flex items-start space-x-2">
+                                  <div key={refIndex} className="flex items-start gap-2">
                                     <FileText className="h-3 w-3 text-slate-400 mt-1 flex-shrink-0" />
-                                    <p className="text-xs text-slate-600">{ref}</p>
+                                    <p className="text-xs text-slate-600 leading-relaxed">{ref}</p>
                                   </div>
                                 ))}
                               </div>
@@ -146,7 +150,7 @@ export function ScientificLibrary() {
                       </div>
                     </div>
                   </AccordionContent>
-                </Card>
+                </div>
               </AccordionItem>
             ))}
           </Accordion>
