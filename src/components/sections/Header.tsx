@@ -57,7 +57,7 @@ export function Header() {
               className="h-8 md:h-10 w-auto"
             />
             <div className="hidden sm:block">
-              <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">
+              <div className="text-lg md:text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                 Enavo Gotas
               </div>
               <div className="text-xs text-gray-500">Ondansetrona Pediátrica</div>
@@ -71,7 +71,7 @@ export function Header() {
                 key={item.id}
                 variant="ghost" 
                 onClick={() => scrollToSection(item.id)} 
-                className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 font-medium transition-all duration-300 rounded-full"
+                className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium transition-all duration-300 rounded-full"
               >
                 {item.label}
               </Button>
@@ -83,7 +83,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden h-10 w-10 text-gray-700 hover:text-purple-600 rounded-full"
+            className="md:hidden h-10 w-10 text-gray-700 hover:text-blue-600 rounded-full"
             aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -107,7 +107,7 @@ export function Header() {
                   key={item.id}
                   variant="ghost"
                   onClick={() => scrollToSection(item.id)}
-                  className="w-full justify-start h-11 text-gray-700 hover:text-purple-600 hover:bg-purple-50 font-medium rounded-full"
+                  className="w-full justify-start h-11 text-gray-700 hover:text-blue-600 hover:bg-blue-50 font-medium rounded-full"
                 >
                   {item.label}
                 </Button>
