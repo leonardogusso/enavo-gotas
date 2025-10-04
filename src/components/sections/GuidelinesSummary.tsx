@@ -4,6 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Award, BookOpen, Star } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
 
+// Menus expansíveis com cores azuis
 const guidelines = [
   {
     id: "diferenciais",
@@ -11,9 +12,13 @@ const guidelines = [
     icon: <BookOpen className="text-blue-700" />,
     color: "blue",
     content: (
-      <ul className="ml-4 list-disc text-blue-800 font-medium">
-        <li>Formulação Exclusiva: Único ondansetrona em gotas do Brasil, facilitando a administração e precisão da dose pediátrica.</li>
-        <li>Sabor Morango: Aumenta a adesão ao tratamento, com sabor agradável e sem necessidade de água.</li>
+      <ul className="ml-4 list-disc">
+        <li>
+          <b>Formulação Exclusiva:</b> Único ondansetrona em gotas do Brasil, facilitando a administração e precisão da dose pediátrica.
+        </li>
+        <li>
+          <b>Sabor Morango:</b> Aumenta a adesão ao tratamento, com sabor agradável e sem necessidade de água.
+        </li>
       </ul>
     )
   },
@@ -23,14 +28,14 @@ const guidelines = [
     icon: <Award className="text-blue-700" />,
     color: "blue",
     content: (
-      <div>
+      <>
         <p>O uso de dose oral única de ondansetrona é endossado por diretrizes para facilitar a Terapia de Reidratação Oral (TRO) e reduzir hospitalizações.</p>
         <ul className="ml-4 list-disc">
-          <li><span className="font-bold">8-15 kg</span>: 2mg (5 gotas)</li>
-          <li><span className="font-bold">15-30 kg</span>: 4mg (10 gotas)</li>
-          <li><span className="font-bold">&gt;30 kg</span>: 8mg (20 gotas)</li>
+          <li><b>8-15 kg:</b> 2mg (5 gotas)</li>
+          <li><b>15-30 kg:</b> 4mg (10 gotas)</li>
+          <li><b>&gt;30 kg:</b> 8mg (20 gotas)</li>
         </ul>
-      </div>
+      </>
     )
   },
   {
@@ -39,12 +44,12 @@ const guidelines = [
     icon: <Star className="text-blue-700" />,
     color: "blue",
     content: (
-      <div>
+      <>
         <p>
           Recomendado pela Sociedade Brasileira de Pediatria (SBP) no "Tratado de Pediatria" e no guia "Manejo da diarreia aguda", além de constar nos protocolos do Ministério da Saúde.<br />
-          <strong>Diretrizes oficiais SBP 2023</strong>
+          <b>Diretrizes oficiais SBP 2023</b>
         </p>
-      </div>
+      </>
     )
   }
 ];
@@ -78,31 +83,23 @@ export function GuidelinesSummary() {
           Base científica que sustenta o uso de Enavo Gotas
         </p>
       </motion.div>
-      <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {/* Menus expansíveis */}
+      <Accordion type="single" collapsible value={value} onValueChange={setValue} className="max-w-4xl mx-auto">
         {guidelines.map((item) => {
           const colors = getColorClasses(item.color);
           return (
-            <motion.div
-              key={item.id}
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              className={[
-                colors.bg,
-                colors.border,
-                "rounded-2xl p-6 shadow-sm transition-all border"
-              ].join(' ')}
-            >
-              <div className="flex items-center justify-center">
-                {item.icon}
-              </div>
-              <h3 className={["font-bold text-xl mt-3 mb-2", colors.text].join(' ')}>{item.title}</h3>
-              <div className="text-gray-700">{item.content}</div>
-            </motion.div>
+            <AccordionItem key={item.id} value={item.id} className={`mb-4 rounded-xl ${colors.bg} ${colors.border} transition`}>
+              <AccordionTrigger className={`flex items-center gap-3 px-4 py-3 font-bold text-lg ${colors.text} hover:bg-blue-100 rounded-xl`}>
+                <span>{item.icon}</span>
+                {item.title}
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-4 text-gray-800">
+                {item.content}
+              </AccordionContent>
+            </AccordionItem>
           );
         })}
-      </div>
+      </Accordion>
     </section>
   );
 }
