@@ -8,14 +8,10 @@ import { CallToAction } from '@/components/sections/CallToAction';
 import { CourseCTA } from '@/components/sections/CourseCTA';
 import { AskRep } from '@/components/sections/AskRep';
 import { Footer } from '@/components/sections/Footer';
-import { useQRCodeDetection, useSessionTracking } from '@/lib/brand-analytics';
+import { InsightCenter } from '@/components/sections/InsightCenter';
 
 export default function IndexPage() {
   const [doctorName, setDoctorName] = useState('');
-
-  // Inicializa o tracking de analytics
-  useQRCodeDetection();
-  useSessionTracking();
 
   return (
     <div className="min-h-screen bg-white">
@@ -28,7 +24,8 @@ export default function IndexPage() {
         <ScientificLibrary />
         <CallToAction />
         <CourseCTA />
-        <AskRep doctorName={doctorName} setDoctorName={setDoctorName} />
+        <AskRep />
+        <InsightCenter />
       </main>
       
       <Footer />
