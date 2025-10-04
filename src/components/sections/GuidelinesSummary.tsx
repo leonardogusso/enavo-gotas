@@ -4,7 +4,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Award, BookOpen, Star } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
 
-// Menus expansíveis com cores azuis
 const guidelines = [
   {
     id: "diferenciais",
@@ -26,7 +25,7 @@ const guidelines = [
     id: "gea",
     title: "Uso na Gastroenterite Aguda (GEA)",
     icon: <Award className="text-blue-700" />,
-    color: "blue",
+    color: "green", // repare no original!
     content: (
       <>
         <p>O uso de dose oral única de ondansetrona é endossado por diretrizes para facilitar a Terapia de Reidratação Oral (TRO) e reduzir hospitalizações.</p>
@@ -42,7 +41,7 @@ const guidelines = [
     id: "endosso",
     title: "Forte Endosso no Brasil",
     icon: <Star className="text-blue-700" />,
-    color: "blue",
+    color: "amber", // repare no original!
     content: (
       <>
         <p>
@@ -63,6 +62,18 @@ export function GuidelinesSummary() {
         border: 'border-blue-200',
         text: 'text-blue-600',
         hover: 'hover:bg-blue-100'
+      },
+      green: {
+        bg: 'bg-green-50',
+        border: 'border-green-200',
+        text: 'text-green-600',
+        hover: 'hover:bg-green-100'
+      },
+      amber: {
+        bg: 'bg-amber-50',
+        border: 'border-amber-200',
+        text: 'text-amber-600',
+        hover: 'hover:bg-amber-100'
       }
     };
     return colors[color as keyof typeof colors] || colors.blue;
@@ -83,13 +94,12 @@ export function GuidelinesSummary() {
           Base científica que sustenta o uso de Enavo Gotas
         </p>
       </motion.div>
-      {/* Menus expansíveis */}
       <Accordion type="single" collapsible value={value} onValueChange={setValue} className="max-w-4xl mx-auto">
         {guidelines.map((item) => {
           const colors = getColorClasses(item.color);
           return (
             <AccordionItem key={item.id} value={item.id} className={`mb-4 rounded-xl ${colors.bg} ${colors.border} transition`}>
-              <AccordionTrigger className={`flex items-center gap-3 px-4 py-3 font-bold text-lg ${colors.text} hover:bg-blue-100 rounded-xl`}>
+              <AccordionTrigger className={`flex items-center gap-3 px-4 py-3 font-bold text-lg ${colors.text} hover:${colors.hover} rounded-xl`}>
                 <span>{item.icon}</span>
                 {item.title}
               </AccordionTrigger>
