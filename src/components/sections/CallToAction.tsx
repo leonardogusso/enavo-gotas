@@ -4,8 +4,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, FileText, Info } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
+import { brandAnalytics } from '@/lib/brand-analytics';
 
 export function CallToAction() {
+  const handleBulaDownload = () => {
+    brandAnalytics.trackBulaDownload();
+  };
+
   return (
     <section id="cta" className="mx-auto max-w-6xl px-4 py-16 scroll-mt-24">
       <motion.div
@@ -65,6 +70,7 @@ export function CallToAction() {
                   asChild 
                   size="lg" 
                   className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                  onClick={handleBulaDownload}
                 >
                   <a 
                     href="/bula-enavo.pdf" 
