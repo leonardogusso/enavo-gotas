@@ -36,7 +36,6 @@ export function Introduction() {
       >
         {/* Logo Enavo ampliado */}
         <img src="/logo-enavo.jpeg" alt="Enavo Gotas" className="mx-auto h-24 md:h-32 w-auto rounded-2xl shadow-lg" />
-
         <h3 className="text-3xl md:text-4xl font-bold text-blue-900 text-center" id="hero-title">
           O único em gotas<span className="text-lg text-gray-500 font-normal">*</span> para <span className="whitespace-nowrap">Náuseas e Vômitos</span>
         </h3>
