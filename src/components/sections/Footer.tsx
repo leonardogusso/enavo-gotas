@@ -6,14 +6,14 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer role="contentinfo" className="bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 text-gray-300">
+    <footer role="contentinfo" className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900 text-gray-300">
       <div className="max-w-6xl mx-auto px-4 py-12">
         {/* Grid Principal */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Coluna 1: Branding */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl flex items-center justify-center">
+              <div className="h-10 w-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center">
                 <Droplets className="h-6 w-6 text-white" />
               </div>
               <div>
@@ -31,19 +31,19 @@ export function Footer() {
             <h3 className="font-semibold text-white text-sm">Informações Técnicas</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Princípio ativo: Ondansetrona</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Concentração: 0,4 mg/gota</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Sabor: Morango</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Indicação: Náuseas e vômitos</span>
               </li>
             </ul>
@@ -54,19 +54,19 @@ export function Footer() {
             <h3 className="font-semibold text-white text-sm">Suporte Profissional</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Atendimento especializado</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Material técnico-científico</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Educação médica continuada</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-purple-400 mt-1">•</span>
+                <span className="text-blue-400 mt-1">•</span>
                 <span>Suporte via WhatsApp</span>
               </li>
             </ul>
@@ -77,7 +77,7 @@ export function Footer() {
         
         {/* Bottom */}
         <div className="space-y-4 text-center">
-          <p className="font-semibold text-purple-400 text-sm">
+          <p className="font-semibold text-blue-400 text-sm">
             ENAVO® GOTAS — cloridrato de ondansetrona di-hidratado
           </p>
           
