@@ -1,13 +1,17 @@
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Droplets } from 'lucide-react';
+import { UsageCounter } from './UsageCounter';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
     <footer role="contentinfo" className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900 text-gray-300">
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="max-w-6xl mx-auto px-4 pt-12 pb-8">
+        
+        <UsageCounter />
+        
         {/* Grid Principal */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Coluna 1: Branding */}
