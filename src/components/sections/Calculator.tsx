@@ -109,10 +109,6 @@ export function Calculator() {
         viewport={{ once: true, amount: 0.2 }}
         className="space-y-8"
       >
-        {/* Logo SBP destacado */}
-        <div className="flex items-center justify-center mb-2">
-          <img src="/logo-SBP.webp" alt="SBP" className="w-16 h-16 object-contain opacity-90 drop-shadow-lg" />
-        </div>
         <h3 className="text-center font-bold text-2xl md:text-3xl text-blue-800 mb-2" id="calculator-title">
           Calculadora de Dose
         </h3>
