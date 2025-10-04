@@ -10,17 +10,17 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 13%;
     
-    /* Roxo EMS como Primary - Inspirado no Instagram */
-    --primary: 280 75% 60%; /* #AF47E8 - Lilás/Roxo EMS */
+    /* Azul EMS como Primary */
+    --primary: 217 91% 60%; /* Azul EMS Principal */
     --primary-foreground: 0 0% 100%;
     
-    /* Roxo Escuro EMS como Secondary */
-    --secondary: 280 45% 42%; /* #76309B - Roxo Escuro EMS */
+    /* Azul Escuro EMS como Secondary */
+    --secondary: 215 84% 48%; /* Azul EMS Escuro */
     --secondary-foreground: 0 0% 100%;
     
-    /* Turquesa EMS como Accent */
-    --accent: 180 65% 55%; /* Turquesa EMS */
-    --accent-foreground: 0 0% 13%;
+    /* Azul Claro EMS como Accent */
+    --accent: 210 100% 96%; /* Azul EMS Claro para fundos */
+    --accent-foreground: 217 91% 60%; /* Azul EMS Principal para texto sobre o fundo claro */
     
     /* Neutros Instagram-style */
     --muted: 0 0% 98%;
@@ -33,7 +33,7 @@
     /* Borders e UI - Instagram-style (mais suaves) */
     --border: 0 0% 91%;
     --input: 0 0% 91%;
-    --ring: 280 75% 60%;
+    --ring: 217 91% 60%; /* Azul EMS Principal */
     --radius: 1rem; /* Bordas mais arredondadas estilo Instagram */
     
     /* Fontes */
@@ -79,7 +79,7 @@
   .dosage-display {
     font-family: var(--font-mono);
     @apply text-6xl font-bold;
-    background: linear-gradient(135deg, #AF47E8 0%, #76309B 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); /* Gradiente Azul */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -103,18 +103,18 @@
   }
   
   .medical-card-hover {
-    @apply medical-card hover:border-purple-300 hover:shadow-lg transition-all duration-300 ease-out;
+    @apply medical-card hover:border-blue-300 hover:shadow-lg transition-all duration-300 ease-out; /* Borda Azul */
   }
   
   /* Botões Instagram-style */
   .medical-button {
     @apply h-11 px-6 font-semibold rounded-full transition-all duration-300;
-    @apply focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2; /* Anel de Foco Azul */
   }
   
   .medical-button-primary {
     @apply medical-button text-white shadow-md hover:shadow-lg;
-    background: linear-gradient(135deg, #AF47E8 0%, #76309B 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); /* Gradiente Azul */
   }
   
   .medical-button-secondary {
@@ -128,7 +128,7 @@
   }
   
   .medical-badge-primary {
-    @apply medical-badge bg-purple-50 text-purple-700 border-purple-200;
+    @apply medical-badge bg-blue-50 text-blue-700 border-blue-200; /* Badge Azul */
   }
   
   /* Seções */
@@ -151,7 +151,7 @@
   }
   
   .medical-alert-info {
-    @apply medical-alert bg-purple-50 border-purple-500;
+    @apply medical-alert bg-blue-50 border-blue-500; /* Alerta Azul */
   }
   
   .medical-alert-warning {
