@@ -25,7 +25,7 @@ const guidelines = [
     id: "gea",
     title: "Uso na Gastroenterite Aguda (GEA)",
     icon: <Award className="text-blue-700" />,
-    color: "green", // repare no original!
+    color: "green",
     content: (
       <>
         <p>O uso de dose oral única de ondansetrona é endossado por diretrizes para facilitar a Terapia de Reidratação Oral (TRO) e reduzir hospitalizações.</p>
@@ -41,7 +41,7 @@ const guidelines = [
     id: "endosso",
     title: "Forte Endosso no Brasil",
     icon: <Star className="text-blue-700" />,
-    color: "amber", // repare no original!
+    color: "amber",
     content: (
       <>
         <p>
