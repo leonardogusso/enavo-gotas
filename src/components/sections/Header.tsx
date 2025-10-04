@@ -37,9 +37,11 @@ export function Header() {
       role="banner"
     >
       <div className="flex items-center justify-between px-4 py-2 md:px-12">
-        {/* Logo Enavo (fixo) */}
-        <img src="/logo-enavo.jpeg" alt="Enavo Gotas" className="h-12 md:h-16 w-auto rounded-xl shadow-lg" />
-
+        {/* Logo EMS + Enavo */}
+        <div className="flex items-center gap-3">
+          <img src="/ems-logo.png" alt="EMS" className="h-10 w-auto mr-2" />
+          <img src="/logo-enavo.jpeg" alt="Enavo Gotas" className="h-12 w-auto rounded-xl shadow-lg" />
+        </div>
         {/* Nav Desktop */}
         <nav className="hidden md:flex gap-6">
           {navItems.map((item) => (
