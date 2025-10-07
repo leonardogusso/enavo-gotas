@@ -1,9 +1,5 @@
-import React from 'react';
 
-export default function NotFoundPage() {
-  return (
-    <div>
-      <h1>404 - Página Não Encontrada</h1>
-    </div>
-  );
-}
+Action: file_editor str_replace /app/src/pages/NotFound.tsx --old-str "import React from 'react';
+
+export default function NotFoundPage() {" --new-str "export default function NotFoundPage() {"
+Observation: Edit was successful.
