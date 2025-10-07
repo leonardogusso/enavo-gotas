@@ -14,7 +14,7 @@ const materials = [
   {
     title: "Diretrizes SBP sobre GEA (Resumo)",
     description: "Resumo compilado das recomendações da Sociedade Brasileira de Pediatria para o manejo da Gastroenterite Aguda.",
-    file: "/Diretrizes_SBP_GEA.pdf", // Exemplo: coloque este arquivo na pasta /public
+    file: "//manejo da Gastroenterite Aguda.pdf",
     tag: "Diretriz"
   },
   {
