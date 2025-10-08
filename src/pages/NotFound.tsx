@@ -1,10 +1,3 @@
-
-
----
-
-## **2. /src/pages/NotFound.tsx**
-Action: file_editor view /app/enavo-gotas/src/pages/NotFound.tsx
-Observation: /app/enavo-gotas/src/pages/NotFound.tsx:
 1|import { Link } from 'react-router-dom';
 2|import { Button } from '@/components/ui/button';
 3|import { Home, ArrowLeft } from 'lucide-react';
