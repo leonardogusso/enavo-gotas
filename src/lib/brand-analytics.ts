@@ -1,338 +1,335 @@
-// Sistema completo de analytics para recordação de marca médica
 import { useEffect } from 'react';
 
-// Utilitário principal para tracking de eventos médicos
+/**
+ * Interface para dados da calculadora
+ */
+interface CalculatorData {
+  weight: number;
+  ageMonths: number;
+  doseMg: number;
+  drops: number;
+  category: string;
+}
+
+/**
+ * Interface para dados de contato com representante
+ */
+interface RepContactData {
+  name: string;
+  specialty: string;
+  crm: string;
+  clinic: string;
+  question: string;
+}
+
+/**
+ * Interface para dados de download
+ */
+interface DownloadData {
+  fileName: string;
+  fileType: string;
+}
+
+/**
+ * Sistema de Analytics para Enavo Gotas
+ * Rastreia interações críticas para conversão e engajamento
+ */
 export const brandAnalytics = {
-  // Evento: Médico chegou via QR Code (métrica crítica)
-  trackQRCodeAccess: (source?: string) => {
+  /**
+   * Rastreia uso da calculadora de dose
+   * Evento crítico para conversão - médico está usando a ferramenta
+   */
+  trackCalculatorUsed: (data: CalculatorData) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'calculator_used', {
+        event_category: 'Medical Tool',
+        event_label: data.category,
+        value: Math.round(data.drops), // Número de gotas como valor
+        weight_kg: data.weight,
+        age_months: data.ageMonths,
+        dose_mg: data.doseMg,
+        // Custom dimensions para segmentação avançada
+        dimension1: data.category,
+        dimension2: `${data.weight}kg`,
+      });
+
+      // Evento de conversão para Google Ads (se configurado)
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-CONVERSION_ID/CONVERSION_LABEL', // Substituir com ID real
+        value: 1.0,
+        currency: 'BRL',
+      });
+
+      console.log('✅ Analytics: Calculadora usada', data);
+    }
+  },
+
+  /**
+   * Rastreia erros na calculadora
+   * Importante para identificar problemas de UX
+   */
+  trackCalculatorError: (errorType: string, data: any) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'calculator_error', {
+        event_category: 'Error',
+        event_label: errorType,
+        error_data: JSON.stringify(data),
+        non_interaction: true,
+      });
+
+      console.error('❌ Analytics: Erro na calculadora', errorType, data);
+    }
+  },
+
+  /**
+   * Rastreia engajamento com a calculadora
+   * Tempo gasto e número de interações indica qualidade do lead
+   */
+  trackCalculatorEngagement: (timeSpent: number, interactions: number) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      // Só rastreia se houve engajamento significativo (>5s)
+      if (timeSpent > 5) {
+        window.gtag('event', 'calculator_engagement', {
+          event_category: 'Engagement',
+          event_label: 'time_and_interactions',
+          time_spent_seconds: timeSpent,
+          interaction_count: interactions,
+          value: timeSpent, // Tempo como valor de engajamento
+        });
+
+        console.log('📊 Analytics: Engajamento calculadora', {
+          timeSpent,
+          interactions,
+        });
+      }
+    }
+  },
+
+  /**
+   * Rastreia contato com representante
+   * LEAD QUENTE - médico demonstrou interesse em falar com especialista
+   */
+  trackRepContact: (data: RepContactData) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      const leadScore = calculateLeadScore(data);
+
+      window.gtag('event', 'rep_contact', {
+        event_category: 'Lead Generation',
+        event_label: data.specialty || 'specialty_not_provided',
+        value: leadScore, // Score de qualidade do lead
+        has_name: !!data.name,
+        has_specialty: !!data.specialty,
+        has_crm: !!data.crm,
+        has_clinic: !!data.clinic,
+        question_length: data.question.length,
+        lead_score: leadScore,
+      });
+
+      // Conversão de Lead (evento crítico)
+      window.gtag('event', 'generate_lead', {
+        event_category: 'Conversion',
+        event_label: 'whatsapp_contact',
+        value: leadScore,
+      });
+
+      console.log('🎯 Analytics: Contato com representante (LEAD)', {
+        leadScore,
+        data,
+      });
+    }
+  },
+
+  /**
+   * Rastreia downloads de materiais
+   * Indica interesse em conteúdo técnico-científico
+   */
+  trackDownload: (fileName: string, fileType: string = 'PDF') => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'file_download', {
+        event_category: 'Content Download',
+        event_label: fileName,
+        file_type: fileType,
+        value: 3, // Peso médio de conversão
+      });
+
+      console.log('📥 Analytics: Download', fileName);
+    }
+  },
+
+  /**
+   * Rastreia profundidade de scroll
+   * Indica nível de interesse no conteúdo
+   */
+  trackScrollDepth: (percentage: number) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      // Rastreia apenas marcos importantes (25%, 50%, 75%, 100%)
+      if ([25, 50, 75, 100].includes(percentage)) {
+        window.gtag('event', 'scroll_depth', {
+          event_category: 'Engagement',
+          event_label: `${percentage}%`,
+          value: percentage,
+          non_interaction: percentage < 75, // Só interação se ler >75%
+        });
+
+        console.log(`📜 Analytics: Scroll ${percentage}%`);
+      }
+    }
+  },
+
+  /**
+   * Rastreia microconversões
+   * Pequenas ações que indicam progressão no funil
+   */
+  trackMicroConversion: (action: string, value: number = 1) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'micro_conversion', {
+        event_category: 'Funnel Progress',
+        event_label: action,
+        value: value,
+      });
+
+      console.log('✨ Analytics: Microconversão', action);
+    }
+  },
+
+  /**
+   * Rastreia compartilhamento
+   * Amplificação orgânica da marca
+   */
+  trackShare: (method: string = 'unknown') => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'share', {
+        event_category: 'Social',
+        event_label: method,
+        value: 5, // Alto valor - viralização
+      });
+
+      console.log('🔗 Analytics: Compartilhamento', method);
+    }
+  },
+
+  /**
+   * Rastreia acesso via QR Code
+   * Importante para medir ROI de materiais impressos
+   */
+  trackQRAccess: () => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'qr_code_access', {
         event_category: 'Brand Engagement',
-        event_label: `QR Code from ${source || 'unknown'}`,
-        custom_parameters: {
-          access_method: 'qr_code',
-          medical_context: source || 'general'
-        },
-        value: 1
+        event_label: 'Doctor accessed via QR Code',
+        value: 2,
       });
+
+      console.log('📱 Analytics: Acesso via QR Code');
     }
   },
 
-  // Evento: Calculadora usada (engajamento principal)
-  trackCalculatorUsage: (indication: string, weight: number, age: number, result: any) => {
+  /**
+   * Rastreia visualização de curso/webinar
+   * Interesse em educação médica continuada
+   */
+  trackCourseClick: (courseName: string) => {
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'calculator_used', {
-        event_category: 'Tool Engagement',
-        event_label: indication,
-        custom_parameters: {
-          patient_weight_range: getWeightRange(weight),
-          patient_age_range: getAgeRange(age),
-          dose_calculated: result?.doseMg || 0,
-          drops_calculated: result?.drops || 0,
-          had_warning: result?.isWarning || false
-        },
-        value: 10 // Alto valor = engajamento importante
+      window.gtag('event', 'course_click', {
+        event_category: 'Education',
+        event_label: courseName,
+        value: 4, // Alto valor - engajamento educacional
       });
+
+      console.log('🎓 Analytics: Click em curso', courseName);
     }
   },
-
-  // Evento: Seções visitadas (interesse em conteúdo)
-  trackSectionView: (sectionName: string, timeOnSection?: number) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'section_viewed', {
-        event_category: 'Content Engagement',
-        event_label: sectionName,
-        custom_parameters: {
-          section_name: sectionName,
-          time_on_section: timeOnSection || 0
-        },
-        value: Math.min(timeOnSection || 1, 10) // Max 10 pontos por seção
-      });
-    }
-  },
-
-  // Evento: Download da bula (interesse em documentação oficial)
-  trackBulaDownload: () => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'bula_download', {
-        event_category: 'Document Engagement',
-        event_label: 'Official Package Insert Downloaded',
-        custom_parameters: {
-          document_type: 'official_bula',
-          download_method: 'direct_link'
-        },
-        value: 5 // Interesse moderado mas importante
-      });
-    }
-  },
-
-  // Evento: Contato com representante (LEAD QUALIFICADO!)
-  trackRepContact: (doctorData: { 
-    name?: string; 
-    specialty?: string; 
-    crm?: string; 
-    clinic?: string;
-    question?: string;
-  }) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      // Calcula qualidade do lead
-      let leadQuality = 'basic';
-      let leadScore = 15;
-      
-      if (doctorData.name && doctorData.specialty) {
-        leadQuality = 'qualified';
-        leadScore = 25;
-      }
-      
-      if (doctorData.crm && doctorData.clinic) {
-        leadQuality = 'highly_qualified';
-        leadScore = 35;
-      }
-
-      window.gtag('event', 'contact_representative', {
-        event_category: 'Lead Generation',
-        event_label: `${leadQuality}_lead`,
-        custom_parameters: {
-          has_doctor_name: !!doctorData.name,
-          has_specialty: !!doctorData.specialty,
-          has_crm: !!doctorData.crm,
-          has_clinic: !!doctorData.clinic,
-          has_question: !!doctorData.question,
-          lead_quality: leadQuality,
-          specialty: doctorData.specialty || 'not_provided'
-        },
-        value: leadScore
-      });
-    }
-  },
-
-  // Evento: Tempo de engajamento na calculadora
-  trackCalculatorEngagement: (timeSpent: number, interactionsCount: number) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      const engagementLevel = getEngagementLevel(timeSpent, interactionsCount);
-      
-      window.gtag('event', 'calculator_engagement', {
-        event_category: 'Tool Engagement',
-        event_label: engagementLevel,
-        custom_parameters: {
-          time_spent_seconds: Math.round(timeSpent / 1000),
-          interactions_count: interactionsCount,
-          engagement_level: engagementLevel
-        },
-        value: Math.min(Math.round(timeSpent / 1000), 300) // Max 5 minutos
-      });
-    }
-  },
-
-  // Evento: Acesso ao curso médico EMS
-  trackCourseAccess: () => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'course_access', {
-        event_category: 'Education Engagement',
-        event_label: 'Medico Exponencial Course Accessed',
-        custom_parameters: {
-          course_platform: 'medico_exponencial',
-          content_type: 'continuing_education'
-        },
-        value: 15
-      });
-    }
-  },
-
-  // Evento: Erro na calculadora (importante para UX)
-  trackCalculatorError: (errorType: string, inputData: any) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'calculator_error', {
-        event_category: 'Tool Error',
-        event_label: errorType,
-        custom_parameters: {
-          error_type: errorType,
-          input_weight: inputData?.weight || 'not_provided',
-          input_age: inputData?.age || 'not_provided',
-          user_agent: navigator.userAgent.substring(0, 100)
-        },
-        value: -1 // Valor negativo para erros
-      });
-    }
-  },
-
-  // Evento: Sessão médica completa (overview da visita)
-  trackSessionComplete: (sessionData: {
-    timeOnSite: number;
-    sectionsVisited: string[];
-    calculatorUsed: boolean;
-    downloadedBula: boolean;
-    contactedRep: boolean;
-  }) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      const sessionQuality = getSessionQuality(sessionData);
-      
-      window.gtag('event', 'session_complete', {
-        event_category: 'Session Quality',
-        event_label: sessionQuality,
-        custom_parameters: {
-          time_on_site_minutes: Math.round(sessionData.timeOnSite / 60000),
-          sections_count: sessionData.sectionsVisited.length,
-          used_calculator: sessionData.calculatorUsed,
-          downloaded_bula: sessionData.downloadedBula,
-          contacted_rep: sessionData.contactedRep,
-          session_quality: sessionQuality
-        },
-        value: getSessionValue(sessionData)
-      });
-    }
-  }
 };
 
-// Funções auxiliares para categorização de dados
-function getWeightRange(weight: number): string {
-  if (weight < 5) return 'muito_baixo_peso';
-  if (weight < 10) return 'baixo_peso';
-  if (weight < 15) return '10-15kg';
-  if (weight < 25) return '15-25kg';
-  if (weight < 40) return '25-40kg';
-  return 'acima_40kg';
+/**
+ * Calcula score de qualidade do lead
+ * Quanto mais informações, maior o score
+ */
+function calculateLeadScore(data: RepContactData): number {
+  let score = 10; // Base
+
+  if (data.name) score += 5;
+  if (data.specialty) score += 10;
+  if (data.crm) score += 15; // CRM é forte indicador de profissional ativo
+  if (data.clinic) score += 10;
+  if (data.question.length > 50) score += 10; // Pergunta detalhada
+  if (data.question.length > 150) score += 10; // Muito engajado
+
+  return score;
 }
 
-function getAgeRange(ageMonths: number): string {
-  if (ageMonths < 6) return 'lactente_0-6m';
-  if (ageMonths < 12) return 'lactente_6-12m';
-  if (ageMonths < 24) return '1-2_anos';
-  if (ageMonths < 60) return '2-5_anos';
-  if (ageMonths < 120) return '5-10_anos';
-  return 'acima_10_anos';
-}
-
-function getEngagementLevel(timeSpent: number, interactions: number): string {
-  const timeMinutes = timeSpent / 60000;
-  
-  if (timeMinutes < 0.5) return 'quick_glance';
-  if (timeMinutes < 2 && interactions < 3) return 'brief_interaction';
-  if (timeMinutes < 5 && interactions < 8) return 'moderate_engagement';
-  if (timeMinutes >= 5 || interactions >= 8) return 'deep_engagement';
-  return 'standard_interaction';
-}
-
-function getSessionQuality(data: any): string {
-  let score = 0;
-  
-  if (data.timeOnSite > 120000) score += 2; // Mais de 2 minutos
-  if (data.sectionsVisited.length >= 3) score += 2;
-  if (data.calculatorUsed) score += 3;
-  if (data.downloadedBula) score += 1;
-  if (data.contactedRep) score += 4;
-  
-  if (score >= 8) return 'high_quality';
-  if (score >= 5) return 'medium_quality';
-  if (score >= 2) return 'basic_quality';
-  return 'low_quality';
-}
-
-function getSessionValue(data: any): number {
-  let value = Math.min(Math.round(data.timeOnSite / 60000), 10); // Base: tempo em minutos (max 10)
-  if (data.calculatorUsed) value += 10;
-  if (data.downloadedBula) value += 3;
-  if (data.contactedRep) value += 15;
-  return value;
-}
-
-// Hook para detectar origem via QR Code
-export function useQRCodeDetection() {
+/**
+ * Hook React para rastrear visualização de seção
+ * Usa Intersection Observer para detectar quando seção está visível
+ */
+export const useSectionTracking = (sectionName: string) => {
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const referrer = document.referrer;
-    const qrParam = urlParams.get('qr');
-    const source = urlParams.get('source') || urlParams.get('local') || 'unknown';
-    
-    // Detecta se veio via QR Code
-    if (qrParam === '1' || (!referrer && !window.location.search)) {
-      brandAnalytics.trackQRCodeAccess(source);
-    }
-  }, []);
-}
-
-// Hook para rastrear tempo em seções específicas
-export function useSectionTracking(sectionId: string) {
-  useEffect(() => {
-    const startTime = Date.now();
-    let hasTracked = false;
-    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasTracked) {
-            const timeSpent = Date.now() - startTime;
-            if (timeSpent > 3000) { // Pelo menos 3 segundos
-              brandAnalytics.trackSectionView(sectionId, timeSpent);
-              hasTracked = true;
-            }
+          if (entry.isIntersecting && typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', 'section_view', {
+              event_category: 'Content Engagement',
+              event_label: sectionName,
+              non_interaction: true,
+            });
+
+            console.log(`👁️ Analytics: Seção visualizada - ${sectionName}`);
           }
         });
       },
-      { threshold: 0.5 } // 50% da seção visível
+      {
+        threshold: 0.5, // 50% da seção visível
+        rootMargin: '0px',
+      }
     );
 
-    const element = document.getElementById(sectionId);
+    const element = document.getElementById(sectionName);
     if (element) {
       observer.observe(element);
     }
 
-    return () => observer.disconnect();
-  }, [sectionId]);
-}
-
-// Hook para rastrear engajamento geral da sessão
-export function useSessionTracking() {
-  useEffect(() => {
-    const sessionStart = Date.now();
-    const sectionsVisited: string[] = [];
-    let calculatorUsed = false;
-    let downloadedBula = false;
-    let contactedRep = false;
-    
-    // Escuta eventos customizados da aplicação
-    const handleCalculatorUse = () => { calculatorUsed = true; };
-    const handleBulaDownload = () => { downloadedBula = true; };
-    const handleRepContact = () => { contactedRep = true; };
-    const handleSectionVisit = (e: CustomEvent) => {
-      if (!sectionsVisited.includes(e.detail.sectionId)) {
-        sectionsVisited.push(e.detail.sectionId);
+    return () => {
+      if (element) {
+        observer.unobserve(element);
       }
     };
+  }, [sectionName]);
+};
 
-    window.addEventListener('calculator-used', handleCalculatorUse);
-    window.addEventListener('bula-downloaded', handleBulaDownload);
-    window.addEventListener('rep-contacted', handleRepContact);
-    window.addEventListener('section-visited', handleSectionVisit as EventListener);
+/**
+ * Hook para rastrear tempo na página
+ * Útil para medir qualidade do tráfego
+ */
+export const useTimeTracking = (pageName: string) => {
+  useEffect(() => {
+    const startTime = Date.now();
 
-    // Rastreia fim da sessão
-    const trackSessionEnd = () => {
-      const sessionData = {
-        timeOnSite: Date.now() - sessionStart,
-        sectionsVisited,
-        calculatorUsed,
-        downloadedBula,
-        contactedRep
-      };
-      
-      brandAnalytics.trackSessionComplete(sessionData);
-    };
-
-    window.addEventListener('beforeunload', trackSessionEnd);
-    
     return () => {
-      window.removeEventListener('calculator-used', handleCalculatorUse);
-      window.removeEventListener('bula-downloaded', handleBulaDownload);
-      window.removeEventListener('rep-contacted', handleRepContact);
-      window.removeEventListener('section-visited', handleSectionVisit as EventListener);
-      window.removeEventListener('beforeunload', trackSessionEnd);
-    };
-  }, []);
-}
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
 
-// Declaração de tipos para TypeScript
+      // Só rastreia se passou tempo significativo (>10s)
+      if (timeSpent > 10 && typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'time_on_page', {
+          event_category: 'Engagement',
+          event_label: pageName,
+          value: timeSpent,
+        });
+
+        console.log(`⏱️ Analytics: Tempo na página ${pageName}: ${timeSpent}s`);
+      }
+    };
+  }, [pageName]);
+};
+
+/**
+ * TypeScript declarations para window.gtag
+ */
 declare global {
   interface Window {
-    gtag: (command: string, targetId: string, config?: any) => void;
+    gtag: (...args: any[]) => void;
+    dataLayer: any[];
   }
 }
+
+export default brandAnalytics;
