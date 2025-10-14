@@ -13,13 +13,13 @@ const materials = [
     tag: "Oficial",
     fileType: "PDF"
   },
-  {
-    title: "Diretrizes SBP sobre GEA (Resumo)",
-    description: "Resumo compilado das recomendações da Sociedade Brasileira de Pediatria para o manejo da Gastroenterite Aguda.",
-    file: "/manejo-gastroenterite-aguda.pdf", // CORRIGIDO: era "//manejo da Gastroenterite Aguda.pdf"
-    tag: "Diretriz",
-    fileType: "PDF"
-  },
+{
+  title: "Manejo da Gastroenterite Aguda",
+  description: "Guia oficial do Ministério da Saúde para o manejo clínico da gastroenterite aguda em crianças.",
+  file: "/manejo-gastroenterite-aguda.pdf",
+  tag: "MS/SBP",
+  fileType: "PDF"
+},
   {
     title: "Estudo de Eficácia (NEJM)",
     description: "Artigo de referência sobre a eficácia da ondansetrona na redução de vômitos e necessidade de hospitalização.",
