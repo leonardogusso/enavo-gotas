@@ -12,10 +12,10 @@ import { InsightCenter } from '@/components/sections/InsightCenter';
 export default function IndexPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-     <Header />
+      <Header />
       <main>
         <Introduction />
-          <GuidelinesSummary />
+        <GuidelinesSummary />
         <Calculator />
         <ScientificLibrary />
         <InsightCenter />
@@ -26,4 +26,4 @@ export default function IndexPage() {
       <Footer />
     </div>
   );
-|}
+}
