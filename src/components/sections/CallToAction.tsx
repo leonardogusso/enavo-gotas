@@ -3,29 +3,37 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Download, FileText, BookMarked } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
+import { brandAnalytics } from '@/lib/brand-analytics';
 
 const materials = [
   {
     title: "Bula Completa - Enavo® Gotas",
     description: "Documento oficial com todas as informações técnicas, posologia, contraindicações e efeitos adversos.",
     file: "/bula-enavo.pdf",
-    tag: "Oficial"
+    tag: "Oficial",
+    fileType: "PDF"
   },
   {
     title: "Diretrizes SBP sobre GEA (Resumo)",
     description: "Resumo compilado das recomendações da Sociedade Brasileira de Pediatria para o manejo da Gastroenterite Aguda.",
-    file: "//manejo da Gastroenterite Aguda.pdf",
-    tag: "Diretriz"
+    file: "/manejo-gastroenterite-aguda.pdf", // CORRIGIDO: era "//manejo da Gastroenterite Aguda.pdf"
+    tag: "Diretriz",
+    fileType: "PDF"
   },
   {
     title: "Estudo de Eficácia (NEJM)",
     description: "Artigo de referência sobre a eficácia da ondansetrona na redução de vômitos e necessidade de hospitalização.",
-    file: "/Estudo_NEJM.pdf", // Exemplo: coloque este arquivo na pasta /public
-    tag: "Estudo Clínico"
+    file: "/Estudo_NEJM.pdf",
+    tag: "Estudo Clínico",
+    fileType: "PDF"
   }
 ];
 
 export function CallToAction() {
+  const handleDownload = (fileName: string, fileType: string) => {
+    brandAnalytics.trackDownload(fileName, fileType);
+  };
+
   return (
     <section id="cta" className="py-12 md:py-20 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4">
@@ -55,17 +63,27 @@ export function CallToAction() {
           className="space-y-4"
         >
           {materials.map((material) => (
-            <div key={material.title} className="bg-white border border-slate-200 rounded-2xl p-5 md:p-6 hover:border-blue-200 transition-all">
+            <div 
+              key={material.title} 
+              className="bg-white border border-slate-200 rounded-2xl p-5 md:p-6 hover:border-blue-200 transition-all"
+            >
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <FileText className="h-8 w-8 text-blue-600 flex-shrink-0" />
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
                     <h3 className="text-base font-bold text-slate-900">{material.title}</h3>
-                    <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">{material.tag}</span>
+                    <span className="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                      {material.tag}
+                    </span>
                   </div>
                   <p className="text-sm text-slate-600 mt-1">{material.description}</p>
                 </div>
-                <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm w-full sm:w-auto">
+                <Button 
+                  asChild 
+                  size="sm" 
+                  className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm w-full sm:w-auto"
+                  onClick={() => handleDownload(material.title, material.fileType)}
+                >
                   <a href={material.file} download>
                     <Download className="h-4 w-4 mr-2" />
                     Baixar PDF
